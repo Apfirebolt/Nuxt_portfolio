@@ -1,8 +1,8 @@
 <template>
   <NuxtLayout name="default">
     <div class="homepage-content py-4 px-6">
-      <h1 class="text-3xl semi-bold text-gray-600 my-3">
-        Welcome to Blog Page
+      <h1 class="text-3xl semi-bold text-center text-gray-600 my-3">
+        Blog
       </h1>
       <Loader v-if="isLoading" />
       <div v-else>
@@ -54,8 +54,8 @@ import { onMounted, computed, ref } from "vue";
 
 definePageMeta({
   layout: false,
-  title: "My Portfolio",
-  description: "This is the homepage of my portfolio",
+  title: "My Portfolio - Blog",
+  description: "Place of my thoughts",
 });
 
 const blogStore = useBlog();

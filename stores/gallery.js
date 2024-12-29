@@ -25,7 +25,7 @@ export const useGallery = defineStore("gallery", {
     async getGalleryAction(id) {
       try {
         this.loading = true;
-        const response = await httpClient.get(`galleries/${id}`);
+        const response = await httpClient.get(`gallery-posts/${id}`);
         if (response) {
           this.gallery = response.data;
           this.loading = false;
@@ -40,7 +40,7 @@ export const useGallery = defineStore("gallery", {
     async getGalleriesAction(searchText = "Mario") {
       try {
         this.loading = true;
-        const response = await httpClient.get(`galleries`);
+        const response = await httpClient.get(`gallery-posts`);
         if (response) {
           this.galleryList = response.data;
           this.loading = false;
