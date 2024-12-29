@@ -1,0 +1,16 @@
+# Nuxt.js
+.nuxt
+node_modules
+dist
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional
+.DS_Store
+.env
+.env.*.local
+.idea
+.vscode
+*.sublime-project
+*.sublime-workspace
