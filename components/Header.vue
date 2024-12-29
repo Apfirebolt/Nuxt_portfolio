@@ -46,9 +46,9 @@
           </transition>
         </Popover>
 
-        <a href="#" class="text-sm/6 font-semibold text-gray-900">Features</a>
-        <a href="#" class="text-sm/6 font-semibold text-gray-900">Marketplace</a>
-        <a href="#" class="text-sm/6 font-semibold text-gray-900">Company</a>
+        <nuxt-link v-for="item in navigation" :key="item.name" :to="{ name: item.name }" class="text-sm/6 font-semibold text-gray-900">
+          {{ item.path }}
+        </nuxt-link>
       </PopoverGroup>
     </nav>
     <Dialog class="lg:hidden" @close="mobileMenuOpen = false" :open="mobileMenuOpen">
@@ -76,12 +76,9 @@
                   <DisclosureButton v-for="item in [...products, ...callsToAction]" :key="item.name" as="a" :href="item.href" class="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">{{ item.name }}</DisclosureButton>
                 </DisclosurePanel>
               </Disclosure>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Features</a>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Marketplace</a>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Company</a>
-            </div>
-            <div class="py-6">
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Log in</a>
+                <nuxt-link v-for="item in navigation" :key="item.name" :to="{ name: item.name }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">
+                {{ item.path }}
+                </nuxt-link>
             </div>
           </div>
         </div>
@@ -119,6 +116,9 @@ import { LockClosedIcon, ViewfinderCircleIcon } from "@heroicons/vue/20/solid";
 const navigation = [
   { name: "index", path: "Home", current: false },
   { name: "about", path: "About", current: false },
+  { name: "gallery", path: "Gallery", current: false },
+  { name: "project", path: "Project", current: false },
+  { name: "blog", path: "Blog", current: false },
 ];
 
 const router = useRouter();

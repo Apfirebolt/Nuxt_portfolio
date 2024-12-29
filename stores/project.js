@@ -26,10 +26,10 @@ export const useProject = defineStore("project", {
       try {
         this.loading = true;
         const response = await httpClient.get(
-          `https://www.amiiboapi.com/api/amiibo/${id}`
+          `projects/${id}`
         );
         if (response) {
-          this.project = response.data.amiibo;
+          this.project = response.data;
           this.loading = false;
         }
       } catch (error) {
@@ -39,14 +39,14 @@ export const useProject = defineStore("project", {
       }
     },
 
-    async getProjectsAction(searchText = "Mario") {
+    async getProjectsAction() {
       try {
         this.loading = true;
         const response = await httpClient.get(
-          `https://www.amiiboapi.com/api/amiibo/?name=${searchText}`
+          `projects`
         );
         if (response) {
-          this.projectList = response.data.amiibo;
+          this.projectList = response.data;
           this.loading = false;
         }
       } catch (error) {
