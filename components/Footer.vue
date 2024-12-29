@@ -4,18 +4,9 @@
       <div class="p-5 sm:w-2/12 border-r">
           <div class="text-sm uppercase text-indigo-600 font-bold">Menu</div>
           <ul>
-              <li class="my-2">
-                  <a class="hover:text-indigo-600" href="#">Home</a>
-              </li>
-              <li class="my-2">
-                  <a class="hover:text-indigo-600" href="#">Services</a>
-              </li>
-              <li class="my-2">
-                  <a class="hover:text-indigo-600" href="#">Products</a>
-              </li>
-              <li class="my-2">
-                  <a class="hover:text-indigo-600" href="#">Pricing</a>
-              </li>
+            <li v-for="item in navigation" :key="item.name" class="my-2">
+                <a class="hover:text-indigo-600" :href="`/${item.name}`">{{ item.path }}</a>
+            </li>
           </ul>
       </div>
       <div class="p-5 sm:w-7/12 border-r text-center">
@@ -104,5 +95,13 @@
   <script setup>
   //props
   const CURRENT_YEAR = new Date().getFullYear();
+
+  const navigation = [
+  { name: "index", path: "Home", current: false },
+  { name: "about", path: "About", current: false },
+  { name: "gallery", path: "Gallery", current: false },
+  { name: "project", path: "Project", current: false },
+  { name: "blog", path: "Blog", current: false },
+];
   </script>
   

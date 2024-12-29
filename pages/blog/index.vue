@@ -14,6 +14,29 @@
           >
             <h2 class="text-2xl font-bold">{{ blog.title }}</h2>
             <p class="text-gray-500" v-html="blog.content"></p>
+
+            <div v-if="blog.images && blog.images.length">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div v-for="item in blog.images" :key="item.id" class="my-2">
+                  <img
+                    :src="getFullImageUrl(item.image)"
+                    alt="Blog Image"
+                    class="w-full h-auto rounded"
+                  />
+                    <div class="flex items-center justify-between mt-4">
+                    <span>
+                      {{ item.caption }}
+                    </span>
+                    <button
+                      @click="viewImageInFullSize(item.image)"
+                      class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-sm font-semibold hover:bg-blue-200"
+                    >
+                      View Full Size
+                    </button>
+                    </div>
+                </div>
+              </div>
+            </div>
             <p class="text-sm text-gray-400">
               Posted on: {{ new Date(blog.date_posted).toLocaleDateString() }}
             </p>
@@ -38,6 +61,15 @@ definePageMeta({
 const blogStore = useBlog();
 const isLoading = computed(() => blogStore.isLoading);
 const blogs = computed(() => blogStore.getBlogList);
+
+const getFullImageUrl = (image) => {
+  return `https://softgenie.org${image}`;
+};
+
+const viewImageInFullSize = (image) => {
+  // open a new tab with the image
+  window.open(`https://softgenie.org${image}`, "_blank");
+};
 
 onMounted(() => {
   blogStore.getBlogsAction();
