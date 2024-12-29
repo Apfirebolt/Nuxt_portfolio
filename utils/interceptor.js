@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let baseURL = "https://www.amiiboapi.com/api/amiibo/";
+let baseURL = "https://softgenie.org/api/";
 
 const httpClient = axios.create({ baseURL });
 
