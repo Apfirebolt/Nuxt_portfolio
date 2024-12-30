@@ -1,16 +1,37 @@
 <template>
   <NuxtLayout name="default">
     <div class="homepage-content py-4 px-6">
-      <h1 class="text-3xl semi-bold text-gray-600 my-3">
-        Welcome to the Portfolio
+      <h1 class="text-3xl semi-bold text-center text-gray-600 my-3">
+        {{ typeText }}
       </h1>
 
-      {{ blogs }}
+      <p>
+        This is the homepage of my portfolio. I am a web developer and I love
+        building web applications. I have experience in building web
+        applications using various technologies like Vue.js, Nuxt.js, React.js,
+        Node.js, Express.js, and MongoDB.
+      </p>
+      
+      <p>
+        I have also worked on projects that involve building RESTful APIs,
+        GraphQL APIs, and serverless applications using AWS Lambda and API
+        Gateway. I have experience in building web applications that are
+        responsive and accessible.
+      </p>
+
+      <div class="search-box my-4">
+        <input
+          type="text"
+          v-model="searchQuery"
+          placeholder="Search blogs..."
+          class="border rounded py-2 px-4 w-full"
+        />
+      </div>
     </div>
   </NuxtLayout>
 </template>
 <script setup>
-import { onMounted, computed } from "vue";
+import { onMounted, computed, ref } from "vue";
 
 definePageMeta({
   layout: false,
@@ -18,10 +39,25 @@ definePageMeta({
   description: "This is the homepage of my portfolio",
 });
 
-const blogStore = useBlog();
-const blogs = computed(() => blogStore.getBlogList);
+const typeText = ref("");
+const searchQuery = ref("");
+
+const typeWriterEffect = () => {
+  const text = "Welcome to the Portfolio";
+  let index = 1;
+  typeText.value = "W"; // Initialize typeText to an empty string
+  let timer = setInterval(() => {
+    if (index < text.length) {
+      typeText.value += text[index];
+      index++;
+    } else {
+      clearInterval(timer);
+      setTimeout(typeWriterEffect, 1000); // Restart the effect after 1 second
+    }
+  }, 100);
+}
 
 onMounted(() => {
-  blogStore.getBlogsAction();
+  typeWriterEffect();
 });
 </script>

@@ -29,7 +29,6 @@
     "@pinia/nuxt": "^0.5.1",
     "@vee-validate/nuxt": "^4.15.0",
     "axios": "^1.7.9",
-    "gsap": "^3.12.5",
-    "pinia-plugin-persistedstate": "^4.2.0"
+    "gsap": "^3.12.5"
   }
 }
