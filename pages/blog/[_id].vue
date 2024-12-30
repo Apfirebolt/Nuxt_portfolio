@@ -12,7 +12,7 @@
               {{ tag.name }}
             </span>
           </div>
-          <p class="text-gray-500" v-html="blog.content"></p>
+          <div v-html="blog.content"></div>
           <div v-if="blog.images && blog.images.length">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div v-for="item in blog.images" :key="item.id" class="my-2">

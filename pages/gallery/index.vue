@@ -20,7 +20,7 @@
               </span>
             </div>
             <h2 class="text-2xl font-bold">{{ item.title }}</h2>
-            <p class="text-gray-500" v-html="item.description"></p>
+            <div v-html="item.description"></div>
             <div v-if="item.images && item.images.length">
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div v-for="image in item.images" :key="image.id" class="my-2">

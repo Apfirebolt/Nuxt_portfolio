@@ -7,9 +7,7 @@
           {{ gallery.title ? gallery.title : "Gallery Detail" }}
         </h1>
         <div v-if="gallery">
-          <p>
-            {{ gallery.description }}
-          </p>  
+          <div v-html="gallery.description"></div>
           <div v-if="gallery.images && gallery.images.length">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div v-for="item in gallery.images" :key="item.id" class="my-2">

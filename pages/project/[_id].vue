@@ -8,7 +8,7 @@
         </h1>
         <div v-if="project">
           <h2 class="text-2xl font-bold">{{ project.name }}</h2>
-          <p class="text-gray-500" v-html="project.description"></p>
+          <div v-html="project.description"></div>
 
           <div v-if="technologies.length" class="my-4">
             <span

@@ -18,7 +18,7 @@
               </span>
             </div>
             <h2 class="text-2xl font-bold">{{ blog.title }}</h2>
-            <p class="text-gray-500" v-html="blog.content"></p>
+            <div v-html="blog.content"></div>
 
             <div v-if="blog.images && blog.images.length">
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
