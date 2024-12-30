@@ -37,6 +37,12 @@
             <p class="text-sm text-gray-400">
               Posted on: {{ new Date(item.date_posted).toLocaleDateString() }}
             </p>
+            <button
+              @click="goToDetail(item)"
+              class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-sm font-semibold hover:bg-green-200 mt-4"
+            >
+              View Details
+            </button>
           </div>
         </div>
         <div v-else>
@@ -66,6 +72,10 @@ const getFullImageUrl = (image) => {
 
 const viewImageInFullSize = (image) => {
   window.open(`https://softgenie.org${image}`, "_blank");
+};
+
+const goToDetail = async (blog) => {
+  await navigateTo(`/blog/${blog.id}`);
 };
 
 onMounted(() => {

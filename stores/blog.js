@@ -60,12 +60,12 @@ export const useBlog = defineStore("blog", {
       }
     },
 
-    async getPostAction(id) {
+    async getPostsAction() {
       try {
         this.loading = true;
-        const response = await httpClient.get(`blog-posts/${id}`);
+        const response = await httpClient.get(`blog-posts`);
         if (response) {
-          this.post = response.data;
+          this.postList = response.data;
           this.loading = false;
         }
       } catch (error) {
@@ -75,12 +75,12 @@ export const useBlog = defineStore("blog", {
       }
     },
 
-    async getPostsAction(searchText = "Mario") {
+    async getPostAction(id) {
       try {
         this.loading = true;
-        const response = await httpClient.get(`blog-posts`);
+        const response = await httpClient.get(`blog-posts/${id}`);
         if (response) {
-          this.postList = response.data;
+          this.post = response.data;
           this.loading = false;
         }
       } catch (error) {
@@ -98,6 +98,8 @@ export const useBlog = defineStore("blog", {
     resetPostData() {
       this.post = {};
       this.postList = [];
+      this.blog = {};
+      this.blogList = [];
     },
   },
 });

@@ -1,9 +1,7 @@
 <template>
   <NuxtLayout name="default">
     <div class="homepage-content py-4 px-6">
-      <h1 class="text-3xl semi-bold text-center text-gray-600 my-3">
-        Blog
-      </h1>
+      <h1 class="text-3xl semi-bold text-center text-gray-600 my-3">Blog</h1>
       <Loader v-if="isLoading" />
       <div v-else>
         <div v-if="blogs.results && blogs.results.length">
@@ -23,7 +21,7 @@
                     alt="Blog Image"
                     class="w-full h-auto rounded"
                   />
-                    <div class="flex items-center justify-between mt-4">
+                  <div class="flex items-center justify-between mt-4">
                     <span>
                       {{ item.caption }}
                     </span>
@@ -33,19 +31,13 @@
                     >
                       View Full Size
                     </button>
-                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             <p class="text-sm text-gray-400">
               Posted on: {{ new Date(blog.date_posted).toLocaleDateString() }}
             </p>
-            <button
-              @click="goToDetail(blog)"
-              class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-sm font-semibold hover:bg-green-200 mt-4"
-            >
-              View Details
-            </button>
           </div>
         </div>
         <div v-else>
@@ -55,18 +47,21 @@
     </div>
   </NuxtLayout>
 </template>
+
 <script setup>
 import { onMounted, computed, ref } from "vue";
 
 definePageMeta({
   layout: false,
-  title: "My Portfolio - Blog",
+  title: "My Portfolio - Blog Detail",
   description: "Place of my thoughts",
 });
 
 const blogStore = useBlog();
 const isLoading = computed(() => blogStore.isLoading);
 const blogs = computed(() => blogStore.getBlogList);
+
+const route = useRoute();
 
 const getFullImageUrl = (image) => {
   return `https://softgenie.org${image}`;
@@ -77,11 +72,9 @@ const viewImageInFullSize = (image) => {
   window.open(`https://softgenie.org${image}`, "_blank");
 };
 
-const goToDetail = async (blog) => {
-  await navigateTo(`/blog/${blog.id}`);
-};
 
-onMounted(() => {
-  blogStore.getBlogsAction();
+onMounted(async () => {
+  const characterId = route.params._id;
+  await fetchCharacter(characterId);
 });
 </script>
