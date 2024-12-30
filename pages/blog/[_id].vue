@@ -7,7 +7,11 @@
           {{ blog.title ? blog.title : "Blog Detail" }}
         </h1>
         <div v-if="blog">
-          <h2 class="text-2xl font-bold"></h2>
+          <div v-if="blog.tags && blog.tags.length" class="my-4">
+            <span v-for="tag in blog.tags" :key="tag" class="inline-block bg-gray-200 text-gray-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
+              {{ tag.name }}
+            </span>
+          </div>
           <p class="text-gray-500" v-html="blog.content"></p>
           <div v-if="blog.images && blog.images.length">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">

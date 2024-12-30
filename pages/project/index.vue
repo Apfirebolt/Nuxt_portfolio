@@ -12,6 +12,15 @@
             :key="project.id"
             class="card my-4 p-4 border rounded shadow"
           >
+            <div v-if="project.tags && project.tags.length" class="my-4">
+              <span
+                v-for="tag in project.tags"
+                :key="tag.name"
+                class="inline-block bg-gray-200 text-gray-700 font-semibold mr-2 px-2.5 py-0.5 rounded-lg shadow-lg"
+              >
+                {{ tag.name }}
+              </span>
+            </div>
             <h2 class="text-2xl font-bold">{{ project.title }}</h2>
             <p class="text-gray-500" v-html="project.description"></p>
 

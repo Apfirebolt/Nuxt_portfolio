@@ -9,6 +9,25 @@
         <div v-if="project">
           <h2 class="text-2xl font-bold">{{ project.name }}</h2>
           <p class="text-gray-500" v-html="project.description"></p>
+
+          <div v-if="technologies.length" class="my-4">
+            <span
+              v-for="tech in technologies"
+              :key="tech"
+              class="inline-block bg-gray-200 text-gray-700 font-semibold mr-2 px-2.5 py-0.5 rounded-lg shadow-lg"
+            >
+              {{ tech }}
+            </span>
+          </div>
+          <div v-if="project.project_link" class="my-4">
+            <a
+              :href="project.project_link"
+              target="_blank"
+              class="text-blue-500 hover:underline"
+            >
+              Project Link
+            </a>
+          </div>
           <div v-if="project.images && project.images.length">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div v-for="item in project.images" :key="item.id" class="my-2">
@@ -62,6 +81,12 @@ const getFullImageUrl = (image) => {
 const viewImageInFullSize = (image) => {
   window.open(`https://softgenie.org${image}`, "_blank");
 };
+
+const technologies = computed(() => {
+  return project.value && project.value.technology
+    ? project.value.technology.split(',')
+    : [];
+});
 
 onMounted(async () => {
   const projectId = route.params._id;

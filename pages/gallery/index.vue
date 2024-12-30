@@ -10,6 +10,15 @@
             :key="item.id"
             class="card my-4 p-4 border rounded shadow"
           >
+            <div v-if="item.tags && item.tags.length" class="my-4">
+              <span
+                v-for="tag in item.tags"
+                :key="tag.name"
+                class="inline-block bg-gray-200 text-gray-700 font-semibold mr-2 px-2.5 py-0.5 rounded-lg shadow-lg"
+              >
+                {{ tag.name }}
+              </span>
+            </div>
             <h2 class="text-2xl font-bold">{{ item.title }}</h2>
             <p class="text-gray-500" v-html="item.description"></p>
             <div v-if="item.images && item.images.length">
