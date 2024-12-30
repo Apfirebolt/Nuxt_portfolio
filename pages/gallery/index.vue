@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-import { onMounted, computed, ref } from "vue";
+import { onMounted, computed } from "vue";
 
 definePageMeta({
   layout: false,
@@ -74,8 +74,8 @@ const viewImageInFullSize = (image) => {
   window.open(`https://softgenie.org${image}`, "_blank");
 };
 
-const goToDetail = async (blog) => {
-  await navigateTo(`/blog/${blog.id}`);
+const goToDetail = async (gallery) => {
+  await navigateTo(`/gallery/${gallery.id}`);
 };
 
 onMounted(() => {

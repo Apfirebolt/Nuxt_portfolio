@@ -23,7 +23,7 @@
                     alt="Project Image"
                     class="w-full h-auto rounded"
                   />
-                    <div class="flex items-center justify-between mt-4">
+                  <div class="flex items-center justify-between mt-4">
                     <span>
                       {{ item.caption }}
                     </span>
@@ -33,12 +33,13 @@
                     >
                       View Full Size
                     </button>
-                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             <p class="text-sm text-gray-400">
-              Posted on: {{ new Date(project.date_posted).toLocaleDateString() }}
+              Posted on:
+              {{ new Date(project.date_posted).toLocaleDateString() }}
             </p>
             <button
               @click="goToDetail(project)"

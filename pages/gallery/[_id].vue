@@ -1,47 +1,40 @@
 <template>
   <NuxtLayout name="default">
-    <div class="homepage-content py-4 px-6">
-      <h1 class="text-3xl semi-bold text-center text-gray-600 my-3">Blog</h1>
+    <div class="gallery-content py-4 px-6">
       <Loader v-if="isLoading" />
       <div v-else>
-        <div v-if="blogs.results && blogs.results.length">
-          <div
-            v-for="blog in blogs.results"
-            :key="blog.id"
-            class="card my-4 p-4 border rounded shadow"
-          >
-            <h2 class="text-2xl font-bold">{{ blog.title }}</h2>
-            <p class="text-gray-500" v-html="blog.content"></p>
-
-            <div v-if="blog.images && blog.images.length">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div v-for="item in blog.images" :key="item.id" class="my-2">
-                  <img
-                    :src="getFullImageUrl(item.image)"
-                    alt="Blog Image"
-                    class="w-full h-auto rounded"
-                  />
-                  <div class="flex items-center justify-between mt-4">
-                    <span>
-                      {{ item.caption }}
-                    </span>
-                    <button
-                      @click="viewImageInFullSize(item.image)"
-                      class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-sm font-semibold hover:bg-blue-200"
-                    >
-                      View Full Size
-                    </button>
-                  </div>
+        <h1 class="text-3xl semi-bold text-center text-gray-600 my-3">
+          {{ gallery.title ? gallery.title : "Gallery Detail" }}
+        </h1>
+        <div v-if="gallery">
+          <p>
+            {{ gallery.description }}
+          </p>  
+          <div v-if="gallery.images && gallery.images.length">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div v-for="item in gallery.images" :key="item.id" class="my-2">
+                <img
+                  :src="getFullImageUrl(item.image)"
+                  alt="Gallery Image"
+                  class="w-full h-auto rounded"
+                />
+                <div class="flex items-center justify-between mt-4">
+                  <span>
+                    {{ item.caption }}
+                  </span>
+                  <button
+                    @click="viewImageInFullSize(item.image)"
+                    class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-sm font-semibold hover:bg-blue-200"
+                  >
+                    View Full Size
+                  </button>
                 </div>
               </div>
             </div>
-            <p class="text-sm text-gray-400">
-              Posted on: {{ new Date(blog.date_posted).toLocaleDateString() }}
-            </p>
           </div>
-        </div>
-        <div v-else>
-          <p>No blogs available.</p>
+          <p class="text-sm text-gray-400">
+            Posted on: {{ new Date(gallery.date_posted).toLocaleDateString() }}
+          </p>
         </div>
       </div>
     </div>
@@ -49,17 +42,17 @@
 </template>
 
 <script setup>
-import { onMounted, computed, ref } from "vue";
+import { onMounted, computed } from "vue";
 
 definePageMeta({
   layout: false,
-  title: "My Portfolio - Blog Detail",
-  description: "Place of my thoughts",
+  title: "My Portfolio - Gallery Detail",
+  description: "Collection of my works",
 });
 
-const blogStore = useBlog();
-const isLoading = computed(() => blogStore.isLoading);
-const blogs = computed(() => blogStore.getBlogList);
+const galleryStore = useGallery();
+const isLoading = computed(() => galleryStore.isLoading);
+const gallery = computed(() => galleryStore.getGallery);
 
 const route = useRoute();
 
@@ -72,9 +65,8 @@ const viewImageInFullSize = (image) => {
   window.open(`https://softgenie.org${image}`, "_blank");
 };
 
-
 onMounted(async () => {
-  const characterId = route.params._id;
-  await fetchCharacter(characterId);
+  const galleryId = route.params._id;
+  await galleryStore.getGalleryAction(galleryId);
 });
 </script>
