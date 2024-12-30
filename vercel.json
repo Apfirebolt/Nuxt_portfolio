@@ -1,24 +1,5 @@
 {
-    "version": 3,
-    "builds": [
-        {
-            "src": "nuxt.config.ts",
-            "use": "@vercel/node"
-        }
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/"
-        }
-    ],
-    "build": {
-        "env": {
-            "NODE_ENV": "production"
-        },
-        "commands": {
-            "install": "npm install --force",
-            "build": "npm run build"
-        }
-    }
+    "buildCommand": "nuxi build",
+    "installCommand": "npm install --force --legacy-peer-deps",
+    "framework": "nuxtjs"
 }
