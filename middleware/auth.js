@@ -1,8 +1,7 @@
-import {storeToRefs} from "pinia";
-export default defineNuxtRouteMiddleware((to, from) => {
-
+export default function ({ store, redirect }) {
+    const authStore = store.$pinia.useAuthStore();
     
-
-    console.log('Inside auth middleware');
-
-})
+    if (!authStore.token) {
+      return redirect('/login');
+    }
+  }

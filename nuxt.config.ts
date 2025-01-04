@@ -30,6 +30,10 @@ export default defineNuxtConfig({
     "@pinia/nuxt"
   ],
 
+  plugins: [
+    { src: '~/plugins/auth.js', ssr: true },
+  ],
+
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",
   },
