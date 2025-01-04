@@ -29,8 +29,9 @@ export const useAuth = defineStore("auth", {
         const response = await httpClient.post("login", loginData);
         if (response.data) {
           this.authData = response.data;
-          Cookies.set('authData', response.data, { expires: 7 }); // Set cookie to expire in 7 days
-          // localStorage.setItem("user", JSON.stringify(response.data));
+          console.log('Response data:', response.data);
+          localStorage.setItem("authData", JSON.stringify(response.data));
+          Cookies.set('authData', JSON.stringify(response.data), { expires: 7 });
         }
       } catch (error) {
         console.log(error);

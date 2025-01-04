@@ -39,7 +39,17 @@ import { ref } from "vue";
 
 const email = ref("");
 const password = ref("");
-// const auth = useAuth();
+const auth = useAuth();
+
+// use localStorage here and get the token
+if (import.meta.client) {
+    const token = localStorage.getItem("authData");
+    if (token) {
+        console.log("User is already logged in");
+    } else {
+        console.log("User is not logged in");
+    }
+}
 
 const handleSubmit = async () => {
 
@@ -47,7 +57,7 @@ const handleSubmit = async () => {
         email: email.value,
         password: password.value,
     };
-    // await auth.loginAction(values);
+    await auth.loginAction(values);
 };
 
 </script>

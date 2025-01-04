@@ -34,6 +34,12 @@ export default defineNuxtConfig({
     { src: '~/plugins/auth.js', ssr: true },
   ],
 
+  routeRules: [
+    {
+      '/login': { ssr: false },
+    },
+  ],
+
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",
   },

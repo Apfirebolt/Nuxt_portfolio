@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import Cookies from 'js-cookie';
 import httpClient from "../utils/interceptor";
 
 export const useBlog = defineStore("blog", {
@@ -48,6 +49,9 @@ export const useBlog = defineStore("blog", {
     async getBlogsAction(searchText = "Mario") {
       try {
         this.loading = true;
+        // load cookie
+        const token = Cookies.get('authData');
+        console.log('Token:', token);
         const response = await httpClient.get(`blogs`);
         if (response) {
           this.blogList = response.data;
