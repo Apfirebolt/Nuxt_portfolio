@@ -4,31 +4,55 @@
       class="homepage-content py-4 px-6 h-screen bg-cover bg-center" 
       style="background-image: url('https://media.istockphoto.com/id/1279106704/photo/defocused-illuminated-background.jpg?s=1024x1024&w=is&k=20&c=aSUZCDSGibPQVr7cYnErvniXDAMVis1qkMG12y9NkfM=');"
     >
-      <h1 class="text-3xl semi-bold text-center text-gray-600 my-3">
-      {{ typeText }}
-      </h1>
+      <div
+        class="relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl"
+      >
+        <!-- Image Column -->
+        <div class="w-full lg:w-1/2">
+          <img
+            class="h-400 w-full object-cover"
+            src="https://picsum.photos/id/1018/2000"
+            alt="Winding mountain road"
+          />
+        </div>
+        <!-- Close Image Column -->
 
-      <p class="text-white">
-      This is the homepage of my portfolio. I am a web developer and I love
-      building web applications. I have experience in building web
-      applications using various technologies like Vue.js, Nuxt.js, React.js,
-      Node.js, Express.js, and MongoDB.
-      </p>
-      
-      <p class="text-white">
-      I have also worked on projects that involve building RESTful APIs,
-      GraphQL APIs, and serverless applications using AWS Lambda and API
-      Gateway. I have experience in building web applications that are
-      responsive and accessible.
-      </p>
+        <!-- Text Column -->
+        <div
+          class="max-w-lg bg-white md:max-w-2xl md:z-10 md:shadow-lg md:absolute md:top-0 md:mt-48 lg:w-3/5 lg:left-0 lg:mt-20 lg:ml-20 xl:mt-24 xl:ml-12"
+        >
+          <!-- Text Wrapper -->
+          <div class="flex flex-col p-12 md:px-16">
+            <h2
+              class="text-2xl font-medium uppercase text-green-800 lg:text-4xl"
+            >
+            {{ typeText }}
+            </h2>
+            <p class="mt-4">
+              This is the homepage of my portfolio. I am a web developer and I love
+              building web applications. I have experience in building web
+              applications using various technologies like Vue.js, Nuxt.js, React.js,
+              Node.js, Express.js, and MongoDB.
+            </p>
+            <p class="mt-4">
+              I have also worked on projects that involve building RESTful APIs,
+              GraphQL APIs, and serverless applications using AWS Lambda and API
+              Gateway. I have experience in building web applications that are
+              responsive and accessible.
+            </p>
 
-      <div class="search-box my-4">
-      <input
-        type="text"
-        v-model="searchQuery"
-        placeholder="Search blogs..."
-        class="border rounded py-2 px-4 w-full"
-      />
+            <div class="search-box my-4">
+              <input
+                type="text"
+                v-model="searchQuery"
+                placeholder="Search blogs..."
+                class="border rounded py-2 px-4 w-full"
+              />
+            </div>
+          </div>
+          <!-- Close Text Wrapper -->
+        </div>
+        <!-- Close Text Column -->
       </div>
     </div>
   </NuxtLayout>

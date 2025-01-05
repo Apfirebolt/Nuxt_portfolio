@@ -1,13 +1,42 @@
 <template>
   <NuxtLayout name="default">
     <div class="about-content py-4 px-6">
-      <div class="card my-4 py-4 px-6 border bg-white rounded shadow">
-        <h2 class="text-2xl font-bold my-3">About Me</h2>
-        <p class="text-gray-500">
-          Hey there, thanks for visiting this website! My name is Amit Prafulla and I am a passionate software developer and an 
+      <div
+          class="relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl"
+        >
+          <!-- Image Column -->
+          <div class="w-full lg:w-1/2">
+            <img
+              class="h-400 w-full object-cover"
+              src="https://softgenie.org/media/images/generic/my_pic1.jpeg"
+              alt="Winding mountain road"
+            />
+          </div>
+          <!-- Close Image Column -->
+
+          <!-- Text Column -->
+          <div
+            class="max-w-lg bg-white md:max-w-2xl md:z-10 md:shadow-lg md:absolute md:top-0 md:mt-48 lg:w-3/5 lg:left-0 lg:mt-20 lg:ml-20 xl:mt-24 xl:ml-12"
+          >
+            <!-- Text Wrapper -->
+            <div class="flex flex-col p-12 md:px-16">
+              <h2
+                class="text-2xl font-medium uppercase text-green-800 lg:text-4xl"
+              >
+                ABOUT
+              </h2>
+              <p class="mt-4">
+                Hey there, thanks for visiting this website! My name is Amit Prafulla and I am a passionate software developer and an 
           enthusiastic individual who thrives on new experiences. I belong to this city called Allahabad/Prayagraj in India. 
           I have a Bachelor's degree in Computer Science as well as a Master's degree in Information Technology with specialization in Cyber Security.
-        </p>
+              </p>
+            </div>
+            <!-- Close Text Wrapper -->
+          </div>
+          <!-- Close Text Column -->
+        </div>
+      <div class="card my-4 py-4 px-6 border bg-white rounded shadow">
+        <h2 class="text-2xl font-bold my-3">"I pursue a career in..."</h2>
         <p class="mt-5">
           I have been working in the software industry for over 6 years now and have experience in various technologies such as 
           Python, Django, FastAPI, React, Angular, Vue, Node.js, Express.js, MongoDB, PostgreSQL, MySQL, Docker, Kubernetes, AWS, 

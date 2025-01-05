@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center items-center h-full">
-    <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-16 w-16"></div>
+    <div class="loader ease-linear rounded-full border-8 border-t-8 h-24 w-24"></div>
   </div>
 </template>
 
@@ -14,7 +14,11 @@ export default defineComponent({
 
 <style>
 .loader {
-  border-top-color: #3498db;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: #3498db;
+  background: linear-gradient(45deg, #3498db, #8e44ad);
   -webkit-animation: spinner 1.5s linear infinite;
   animation: spinner 1.5s linear infinite;
 }

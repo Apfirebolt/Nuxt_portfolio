@@ -1,11 +1,43 @@
 <template>
   <NuxtLayout name="default">
     <div class="homepage-content py-4 px-6">
-      <h1 class="text-3xl semi-bold text-center text-gray-600 my-3">
-        Projects
-      </h1>
       <Loader v-if="isLoading" />
       <div v-else>
+        <div
+          class="relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl"
+        >
+          <!-- Image Column -->
+          <div class="w-full h-64 lg:w-1/2 lg:h-auto">
+            <img
+              class="h-full w-full object-cover"
+              src="https://picsum.photos/id/1018/2000"
+              alt="Winding mountain road"
+            />
+          </div>
+          <!-- Close Image Column -->
+
+          <!-- Text Column -->
+          <div
+            class="max-w-lg bg-white md:max-w-2xl md:z-10 md:shadow-lg md:absolute md:top-0 md:mt-48 lg:w-3/5 lg:left-0 lg:mt-20 lg:ml-20 xl:mt-24 xl:ml-12"
+          >
+            <!-- Text Wrapper -->
+            <div class="flex flex-col p-12 md:px-16">
+              <h2
+                class="text-2xl font-medium uppercase text-green-800 lg:text-4xl"
+              >
+                PROJECTS
+              </h2>
+              <p class="mt-4">
+                This section shows the projects I've worked on. You can view the
+                details of each project by clicking on the "View Details"
+                button. It would display details of the project including the
+                images and the description plus the technologies used.
+              </p>
+            </div>
+            <!-- Close Text Wrapper -->
+          </div>
+          <!-- Close Text Column -->
+        </div>
         <div v-if="projects.results && projects.results.length">
           <div
             v-for="project in projects.results"
