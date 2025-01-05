@@ -1,10 +1,8 @@
 <template>
   <NuxtLayout name="default">
     <div class="homepage-content py-4 px-6">
-      <Loader v-if="isLoading" />
-      <div v-else>
-        <div
-          class="relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl"
+      <div
+          class="hero relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl"
         >
           <!-- Image Column -->
           <div class="w-full h-64 lg:w-1/2 lg:h-auto">
@@ -36,6 +34,8 @@
           </div>
           <!-- Close Text Column -->
         </div>
+      <Loader v-if="isLoading" />
+      <div v-else>
         <div v-if="blogs.results && blogs.results.length">
           <div
             v-for="blog in blogs.results"
@@ -92,6 +92,7 @@
 </template>
 <script setup>
 import { onMounted, computed, ref } from "vue";
+import gsap from "gsap";
 
 definePageMeta({
   layout: false,
@@ -118,5 +119,11 @@ const goToDetail = async (blog) => {
 
 onMounted(() => {
   blogStore.getBlogsAction();
+  gsap.from('.hero', {
+    scale: 0.8,
+    opacity: 0,
+    duration: 1,
+    ease: 'power3.out',
+  });
 });
 </script>

@@ -5,7 +5,7 @@
       style="background-image: url('https://media.istockphoto.com/id/1279106704/photo/defocused-illuminated-background.jpg?s=1024x1024&w=is&k=20&c=aSUZCDSGibPQVr7cYnErvniXDAMVis1qkMG12y9NkfM=');"
     >
       <div
-        class="relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl"
+        class="hero relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl"
       >
         <!-- Image Column -->
         <div class="w-full lg:w-1/2">
@@ -59,6 +59,18 @@
 </template>
 <script setup>
 import { onMounted, computed, ref } from "vue";
+import { gsap } from 'gsap';
+
+// apply slide in left on hero class using gsap
+onMounted(() => {
+  gsap.from('.hero', {
+    x: 100,
+    scale: 0.8,
+    opacity: 0,
+    duration: 1,
+    ease: 'power4.out',
+  });
+});
 
 definePageMeta({
   layout: false,
