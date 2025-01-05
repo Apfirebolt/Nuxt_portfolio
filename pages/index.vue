@@ -10,8 +10,8 @@
         <!-- Image Column -->
         <div class="w-full lg:w-1/2">
           <img
-            class="h-400 w-full object-cover"
-            src="https://picsum.photos/id/1018/2000"
+            class="h-500 w-full object-cover"
+            src="https://softgenie.org/media/images/generic/home.jpeg"
             alt="Winding mountain road"
           />
         </div>
@@ -35,10 +35,8 @@
               Node.js, Express.js, and MongoDB.
             </p>
             <p class="mt-4">
-              I have also worked on projects that involve building RESTful APIs,
-              GraphQL APIs, and serverless applications using AWS Lambda and API
-              Gateway. I have experience in building web applications that are
-              responsive and accessible.
+              I have also worked on projects that involve building RESTful APIs and tools like Docker, Kubernetes and Jenkins.
+              I have experience in building web applications that are responsive and accessible.
             </p>
 
             <div class="search-box my-4">
@@ -82,7 +80,7 @@ const typeText = ref("");
 const searchQuery = ref("");
 
 const typeWriterEffect = () => {
-  const text = "Welcome to the Portfolio";
+  const text = "Welcome to my Portfolio";
   let index = 1;
   typeText.value = "W"; // Initialize typeText to an empty string
   let timer = setInterval(() => {

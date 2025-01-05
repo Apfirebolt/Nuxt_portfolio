@@ -46,7 +46,11 @@
           </transition>
         </Popover> -->
 
-        <nuxt-link v-for="item in navigation" :key="item.name" :to="{ name: item.name }" class="text-sm/6 font-semibold text-gray-900">
+        <nuxt-link 
+          v-for="item in navigation" 
+          :key="item.name" 
+          :to="{ name: item.name }" 
+          class="font-semibold uppercase text-secondary-dark text-lg tracking-wider transition duration-300 ease-in-out transform hover:text-primary-dark hover:scale-105">
           {{ item.path }}
         </nuxt-link>
       </PopoverGroup>

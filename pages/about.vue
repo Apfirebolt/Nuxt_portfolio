@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout name="default">
-    <div class="about-content py-4 px-6">
+    <div class="about-content bg-gradient-to-r from-primary-dark to-secondary-dark text-primary-dark py-4 px-6">
       <div
         class="hero relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl"
       >
@@ -21,7 +21,7 @@
           <!-- Text Wrapper -->
           <div class="flex flex-col p-12 md:px-16">
             <h2
-              class="text-2xl font-medium uppercase text-green-800 lg:text-4xl"
+              class="text-2xl font-medium uppercase text-secondary-dark lg:text-4xl"
             >
               ABOUT
             </h2>
@@ -56,7 +56,7 @@
 
       <div class="card my-4 py-4 px-6 border bg-white rounded shadow" data-aos="zoom-in">
         <h2 class="text-2xl font-bold my-3">"Travel is the air I breathe"</h2>
-        <p class="text-gray-500">
+        <p>
           I simply love to travel and explore new places. I have been to various
           places in India and have also traveled to Europe. I'd often take a
           break from my work and go on a trip to some new place. I believe that
@@ -79,7 +79,7 @@
         <h2 class="text-2xl font-bold my-3">
           "I have multiple lives – in every game I play."
         </h2>
-        <p class="text-gray-500">
+        <p>
           I love playing video games and it is one of my favorite pastimes. I
           have been playing video games since I was a kid and have played
           various games on different platforms. I enjoy playing games on PC,
@@ -109,7 +109,7 @@
         <h2 class="text-2xl font-bold my-3">
           "Music is the essence of my spirit"
         </h2>
-        <p class="text-gray-500">
+        <p>
           I love listening to music and it is an integral part of my life. I
           would often listen to instrumental music while I'm working or
           traveling. I believe that music has the power to heal and soothe the
@@ -137,7 +137,7 @@
         <h2 class="text-2xl font-bold my-3">
           "My penchant for Photography and Video editing"
         </h2>
-        <p class="text-gray-500">
+        <p>
           I think most people who travel have a natural inclination towards
           photography. I am no different. I love capturing moments and creating
           memories through photographs. I have a keen interest in photography
@@ -164,7 +164,7 @@
 
       <div class="card my-4 py-4 px-6 border bg-white rounded shadow" data-aos="flip-down">
         <h2 class="text-2xl font-bold my-3">"I ❤️ Cooking"</h2>
-        <p class="text-gray-500">
+        <p>
           Cooking is one of my favorite hobbies and I enjoy experimenting with
           different cuisines and recipes. I believe that cooking is a form of
           art that allows you to express yourself and create something delicious
@@ -187,7 +187,7 @@
 
       <div class="card my-4 py-4 px-6 border bg-white rounded shadow" data-aos="zoom-in-right">
         <h2 class="text-2xl font-bold my-3">"Games and Sports I am into"</h2>
-        <p class="text-gray-500">
+        <p>
           I'm pretty much average in sports but I do enjoy playing them. I have
           played Cricket, Badminton, Table Tennis, and Football. I enjoy
           watching Tennis and Football matches on TV and had been following the

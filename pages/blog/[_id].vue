@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout name="default">
-    <div class="homepage-content py-4 px-6">
+    <div class="homepage-content bg-gradient-to-r from-primary-dark to-secondary-dark py-4 px-6">
       <Loader v-if="isLoading" />
       <div v-else>
         <h1 class="text-3xl semi-bold text-center text-gray-600 my-3">

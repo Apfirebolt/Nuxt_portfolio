@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout name="default">
-    <div class="homepage-content bg-secondary-dark py-4 px-6">
+    <div class="homepage-content bg-gradient-to-r from-primary-dark to-secondary-dark py-4 px-6">
       <div
           class="hero relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl"
         >
@@ -21,7 +21,7 @@
             <!-- Text Wrapper -->
             <div class="flex flex-col p-12 md:px-16">
               <h2
-                class="text-2xl font-medium uppercase text-primary lg:text-4xl"
+                class="text-2xl font-medium uppercase text-secondary-dark lg:text-4xl"
               >
                 GALLERY
               </h2>
