@@ -16,7 +16,7 @@
               alt="Winding mountain road"
             />
           </div>
-          
+
           <div
             class="max-w-lg bg-white md:max-w-2xl md:z-10 md:shadow-lg md:absolute md:top-0 md:mt-48 lg:w-3/5 lg:left-0 lg:mt-20 lg:ml-20 xl:mt-24 xl:ml-12"
           >
@@ -58,9 +58,14 @@
           <div v-html="project.description"></div>
 
           <div v-if="project.images && project.images.length">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div v-for="item in project.images" :key="item.id" class="my-2">
+            <div class="columns-1 md:columns-3 gap-4">
+              <div
+                v-for="item in project.images"
+                :key="item.id"
+                class="mb-4 break-inside-avoid"
+              >
                 <img
+                  @click="viewImageInFullSize(item.image)"
                   :src="getFullImageUrl(item.image)"
                   alt="Project Image"
                   class="w-full h-auto rounded"
@@ -69,24 +74,86 @@
                   <span>
                     {{ item.caption }}
                   </span>
-                  <button
-                    @click="viewImageInFullSize(item.image)"
-                    class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-sm font-semibold hover:bg-blue-200"
-                  >
-                    View Full Size
-                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <TransitionRoot appear :show="isOpen" as="template">
+        <Dialog as="div" @close="closeModal" class="relative z-10">
+          <TransitionChild
+            as="template"
+            enter="duration-300 ease-out"
+            enter-from="opacity-0"
+            enter-to="opacity-100"
+            leave="duration-200 ease-in"
+            leave-from="opacity-100"
+            leave-to="opacity-0"
+          >
+            <div class="fixed inset-0 bg-black/25" />
+          </TransitionChild>
+
+          <div class="fixed inset-0 overflow-y-auto">
+            <div
+              class="flex min-h-full items-center justify-center p-4 text-center"
+            >
+              <TransitionChild
+                as="template"
+                enter="duration-300 ease-out"
+                enter-from="opacity-0 scale-95"
+                enter-to="opacity-100 scale-100"
+                leave="duration-200 ease-in"
+                leave-from="opacity-100 scale-100"
+                leave-to="opacity-0 scale-95"
+              >
+                <DialogPanel
+                  class="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+                >
+                  <div class="mt-2">
+                    <div class="mt-4 flex justify-between">
+                    <button
+                      type="button"
+                      class="inline-flex justify-center rounded-md border border-transparent bg-secondary-dark p-2 text-sm font-medium text-primary hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 mr-2"
+                      @click="prevImage"
+                    >
+                      <ChevronLeftIcon class="h-5 w-5" />
+                    </button>
+                    <button
+                      type="button"
+                      class="inline-flex justify-center rounded-md border border-transparent bg-secondary-dark p-2 text-sm font-medium text-primary hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      @click="nextImage"
+                    >
+                      <ChevronRightIcon class="h-5 w-5" />
+                    </button>
+                  </div>
+                    <img
+                      v-if="selectedImage"
+                      :src="selectedImage"
+                      alt="Selected Image"
+                      class="w-full h-auto rounded mt-4"
+                    />
+                  </div>
+                </DialogPanel>
+              </TransitionChild>
+            </div>
+          </div>
+        </Dialog>
+      </TransitionRoot>
     </div>
   </NuxtLayout>
 </template>
 
 <script setup>
-import { onMounted, computed } from "vue";
+import { onMounted, computed, ref } from "vue";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/outline";
+import {
+  TransitionRoot,
+  TransitionChild,
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/vue";
 
 definePageMeta({
   layout: false,
@@ -94,9 +161,45 @@ definePageMeta({
   description: "Details of my project",
 });
 
+const selectedImage = ref(null);
+const isOpen = ref(false);
 const projectStore = useProject();
 const isLoading = computed(() => projectStore.isLoading);
 const project = computed(() => projectStore.getProject);
+
+const closeModal = () => {
+  isOpen.value = false;
+};
+
+const openModal = () => {
+  isOpen.value = true;
+};
+
+const prevImage = () => {
+  // get the index of the current image
+  const currentIndex = project.value.images.findIndex(
+    (image) => image.image === selectedImage.value
+  );
+  // get the previous image
+  const prevImage =
+    currentIndex > 0
+      ? project.value.images[currentIndex - 1].image
+      : project.value.images[project.value.images.length - 1].image;
+  selectedImage.value = getFullImageUrl(prevImage);
+};
+
+const nextImage = () => {
+  // get the index of the current image
+  const currentIndex = project.value.images.findIndex(
+    (image) => image.image === selectedImage.value
+  );
+  // get the next image
+  const nextImage =
+    currentIndex < project.value.images.length - 1
+      ? project.value.images[currentIndex + 1].image
+      : project.value.images[0].image;
+  selectedImage.value = getFullImageUrl(nextImage);
+};
 
 const route = useRoute();
 
@@ -105,7 +208,9 @@ const getFullImageUrl = (image) => {
 };
 
 const viewImageInFullSize = (image) => {
-  window.open(`https://softgenie.org${image}`, "_blank");
+  selectedImage.value = getFullImageUrl(image);
+  openModal();
+  // window.open(`https://softgenie.org${image}`, "_blank");
 };
 
 const technologies = computed(() => {

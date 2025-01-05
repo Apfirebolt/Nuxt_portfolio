@@ -77,8 +77,22 @@ definePageMeta({
 const galleryStore = useGallery();
 const isLoading = computed(() => galleryStore.isLoading);
 const gallery = computed(() => galleryStore.getGallery);
+const visibleRef = ref(false);
+const indexRef = ref(0);
+const imgs = computed(() =>
+  gallery && gallery.value && gallery.value.images.map((image) => ({
+    src: getFullImageUrl(image.image),
+    caption: image.caption,
+  }))
+);
 
 const route = useRoute();
+
+const showImg = (index) => {
+  indexRef.value = index;
+  visibleRef.value = true;
+};
+const onHide = () => (visibleRef.value = false);
 
 const getFullImageUrl = (image) => {
   return `https://softgenie.org${image}`;

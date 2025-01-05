@@ -25,10 +25,7 @@ export default defineNuxtConfig({
   },
   css: ["~/assets/css/main.css"],
 
-  modules: [
-    "@nuxtjs/tailwindcss",
-    "@pinia/nuxt"
-  ],
+  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "nuxt-easy-lightbox", "nuxt-swiper"],
 
   plugins: [
     { src: '~/plugins/auth.js', ssr: true },
