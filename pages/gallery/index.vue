@@ -1,15 +1,15 @@
 <template>
   <NuxtLayout name="default">
-    <div class="homepage-content py-4 px-6">
+    <div class="homepage-content bg-secondary-dark py-4 px-6">
       <div
           class="hero relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl"
         >
           <!-- Image Column -->
           <div class="w-full h-64 lg:w-1/2 lg:h-auto">
             <img
-              class="h-full w-full object-cover"
-              src="https://picsum.photos/id/1018/2000"
-              alt="Winding mountain road"
+              class="h-500 w-full object-cover"
+              src="https://softgenie.org/media/images/generic/gallery.jpeg"
+              alt="Ladakh lake"
             />
           </div>
           <!-- Close Image Column -->
@@ -21,7 +21,7 @@
             <!-- Text Wrapper -->
             <div class="flex flex-col p-12 md:px-16">
               <h2
-                class="text-2xl font-medium uppercase text-green-800 lg:text-4xl"
+                class="text-2xl font-medium uppercase text-primary lg:text-4xl"
               >
                 GALLERY
               </h2>
@@ -41,7 +41,7 @@
           <div
             v-for="item in gallery.results"
             :key="item.id"
-            class="card my-4 p-4 border rounded shadow"
+            class="card my-4 p-4 border bg-secondary rounded shadow"
             :data-aos="randomAOSEffect()"
           >
             <div v-if="item.tags && item.tags.length" class="my-4">
@@ -99,6 +99,10 @@
 <script setup>
 import { onMounted, computed } from "vue";
 import gsap from "gsap";
+
+useHead({
+  title: 'APGIIIT.com - My Gallery',
+});
 
 definePageMeta({
   layout: false,

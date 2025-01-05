@@ -9,14 +9,15 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        tea: "url('/hobbies/tea-cup.webp')",
-        blog: "url('/hobbies/myblog.webp')",
-        music:
-          "url('/hobbies/negative-space-headphones-black-white-corey-blaz.webp')",
-        grocer: "url('/hobbies/grocer.webp')",
-        journaling: "url('/hobbies/journaling.webp')",
-        programming: "url('/hobbies/programming.webp')",
+      colors: {
+        primary: "#FFFAEC",
+        secondary: "#F5ECD5",
+        "primary-dark": "#3D3D3D",
+        "secondary-dark": "#578E7E",
+        "primary-light": "#FFD700",
+        "secondary-light": "#FFA500",
+        "danger": "#FF0000",
+        "success": "#00FF00",
       },
       minWidth: {
         sm: "20rem",

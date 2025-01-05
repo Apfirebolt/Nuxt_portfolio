@@ -1,5 +1,5 @@
 <template>
-<header class="bg-neutral-200">
+<header class="bg-primary">
     <nav class="mx-auto flex max-w-7xl items-center justify-between py-3 lg:px-4 px-2" aria-label="Global">
       <div class="flex lg:flex-1">
         <a href="#" class="-m-1.5 p-1.5">

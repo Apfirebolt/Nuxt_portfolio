@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout name="default">
-    <div class="homepage-content py-4 px-6">
+    <div class="homepage-content bg-secondary-dark py-4 px-6">
       <div
           class="hero relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl"
         >
@@ -8,7 +8,7 @@
           <div class="w-full h-64 lg:w-1/2 lg:h-auto">
             <img
               class="h-full w-full object-cover"
-              src="https://picsum.photos/id/1018/2000"
+              src="@/assets/laptop.jpg"
               alt="Winding mountain road"
             />
           </div>
@@ -21,7 +21,7 @@
             <!-- Text Wrapper -->
             <div class="flex flex-col p-12 md:px-16">
               <h2
-                class="text-2xl font-medium uppercase text-green-800 lg:text-4xl"
+                class="text-2xl font-medium uppercase text-secondary-dark lg:text-4xl"
               >
                 PROJECTS
               </h2>
@@ -42,7 +42,7 @@
           <div
             v-for="project in projects.results"
             :key="project.id"
-            class="card my-4 p-4 border rounded shadow"
+            class="card my-4 p-4 border bg-secondary rounded shadow"
             :data-aos="randomAOSEffect()"
           >
             <div v-if="project.tags && project.tags.length" class="my-4">
@@ -101,6 +101,10 @@
 <script setup>
 import { onMounted, computed, watch } from "vue";
 import { gsap } from 'gsap';
+
+useHead({
+  title: 'APGIIIT.com - My Projects',
+});
 
 definePageMeta({
   layout: false,

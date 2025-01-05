@@ -1,14 +1,14 @@
 <template>
   <NuxtLayout name="default">
-    <div class="homepage-content py-4 px-6">
+    <div class="homepage-content bg-secondary-dark py-4 px-6">
       <div
           class="hero relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl"
         >
           <!-- Image Column -->
           <div class="w-full h-64 lg:w-1/2 lg:h-auto">
             <img
-              class="h-full w-full object-cover"
-              src="https://picsum.photos/id/1018/2000"
+              class="h-500 w-full object-cover"
+              src="https://softgenie.org/media/images/generic/my_blog.jpeg"
               alt="Winding mountain road"
             />
           </div>
@@ -40,7 +40,7 @@
           <div
             v-for="blog in blogs.results"
             :key="blog.id"
-            class="card my-4 p-4 border rounded shadow"
+            class="card my-4 p-4 border rounded bg-secondary shadow"
             :data-aos="randomAOSEffect()"
           >
             <div v-if="blog.tags && blog.tags.length" class="my-4">
@@ -94,6 +94,10 @@
 <script setup>
 import { onMounted, computed, ref } from "vue";
 import gsap from "gsap";
+
+useHead({
+  title: 'APGIIIT.com - My Blog',
+});
 
 definePageMeta({
   layout: false,
