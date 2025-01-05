@@ -34,7 +34,7 @@
             <!-- Close Text Wrapper -->
           </div>
           <!-- Close Text Column -->
-        </div>
+      </div>
       <Loader v-if="isLoading" />
       <div v-else>
         <div v-if="gallery.results && gallery.results.length">

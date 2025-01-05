@@ -7,7 +7,7 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: "en",
       },
-      title: "APIIIIT.com - My Portfolio",
+      title: "Apgiiit.com - My Portfolio",
       meta: [
         {
           name: "viewport",

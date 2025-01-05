@@ -3,9 +3,38 @@
     <div class="gallery-content bg-gradient-to-r from-primary-dark to-secondary-dark py-4 px-6">
       <Loader v-if="isLoading" />
       <div v-else>
-        <h1 class="text-3xl semi-bold text-center text-gray-600 my-3">
-          {{ gallery.title ? gallery.title : "Gallery Detail" }}
-        </h1>
+        <div
+          class="hero relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl"
+        >
+          <!-- Image Column -->
+          <div class="w-full h-64 lg:w-1/2 lg:h-auto">
+            <img
+              class="h-500 w-full object-cover"
+              src="https://softgenie.org/media/images/generic/gallery.jpeg"
+              alt="Ladakh lake"
+            />
+          </div>
+          <!-- Close Image Column -->
+
+          <!-- Text Column -->
+          <div
+            class="max-w-lg bg-white md:max-w-2xl md:z-10 md:shadow-lg md:absolute md:top-0 md:mt-48 lg:w-3/5 lg:left-0 lg:mt-20 lg:ml-20 xl:mt-24 xl:ml-12"
+          >
+            <!-- Text Wrapper -->
+            <div class="flex flex-col p-12 md:px-16">
+              <h2
+                class="text-2xl font-medium uppercase text-secondary-dark lg:text-4xl"
+              >
+              {{ gallery.title ? gallery.title : "Gallery Detail" }}
+              </h2>
+              <p class="text-sm text-secondary-dark mt-4">
+                Posted on: {{ new Date(gallery.date_posted).toLocaleDateString() }}
+              </p>
+            </div>
+            <!-- Close Text Wrapper -->
+          </div>
+          <!-- Close Text Column -->
+      </div>
         <div v-if="gallery">
           <div v-html="gallery.description"></div>
           <div v-if="gallery.images && gallery.images.length">
@@ -30,9 +59,6 @@
               </div>
             </div>
           </div>
-          <p class="text-sm text-gray-400">
-            Posted on: {{ new Date(gallery.date_posted).toLocaleDateString() }}
-          </p>
         </div>
       </div>
     </div>

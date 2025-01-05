@@ -35,7 +35,7 @@
             <!-- Close Text Wrapper -->
           </div>
           <!-- Close Text Column -->
-        </div>
+      </div>
       <Loader v-if="isLoading" />
       <div v-else>
         <div v-if="projects.results && projects.results.length">
