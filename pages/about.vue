@@ -38,7 +38,7 @@
         </div>
         <!-- Close Text Column -->
       </div>
-      <div class="card my-4 py-4 px-6 border bg-white rounded shadow">
+      <div class="card my-4 py-4 px-6 border bg-white rounded shadow" data-aos="fade-up">
         <h2 class="text-2xl font-bold my-3">"I pursue a career in..."</h2>
         <p class="mt-5">
           I have been working in the software industry for over 6 years now and
@@ -54,7 +54,7 @@
         </p>
       </div>
 
-      <div class="card my-4 py-4 px-6 border bg-white rounded shadow">
+      <div class="card my-4 py-4 px-6 border bg-white rounded shadow" data-aos="zoom-in">
         <h2 class="text-2xl font-bold my-3">"Travel is the air I breathe"</h2>
         <p class="text-gray-500">
           I simply love to travel and explore new places. I have been to various
@@ -75,7 +75,7 @@
         </p>
       </div>
 
-      <div class="card my-4 py-4 px-6 border bg-white rounded shadow">
+      <div class="card my-4 py-4 px-6 border bg-white rounded shadow" data-aos="fade-up-right">
         <h2 class="text-2xl font-bold my-3">
           "I have multiple lives – in every game I play."
         </h2>
@@ -105,7 +105,7 @@
         </p>
       </div>
 
-      <div class="card my-4 py-4 px-6 border bg-white rounded shadow">
+      <div class="card my-4 py-4 px-6 border bg-white rounded shadow" data-aos="fade-up-left">
         <h2 class="text-2xl font-bold my-3">
           "Music is the essence of my spirit"
         </h2>
@@ -133,7 +133,7 @@
         </p>
       </div>
 
-      <div class="card my-4 py-4 px-6 border bg-white rounded shadow">
+      <div class="card my-4 py-4 px-6 border bg-white rounded shadow" data-aos="flip-up">
         <h2 class="text-2xl font-bold my-3">
           "My penchant for Photography and Video editing"
         </h2>
@@ -162,7 +162,7 @@
         </p>
       </div>
 
-      <div class="card my-4 py-4 px-6 border bg-white rounded shadow">
+      <div class="card my-4 py-4 px-6 border bg-white rounded shadow" data-aos="flip-down">
         <h2 class="text-2xl font-bold my-3">"I ❤️ Cooking"</h2>
         <p class="text-gray-500">
           Cooking is one of my favorite hobbies and I enjoy experimenting with
@@ -185,7 +185,7 @@
         </p>
       </div>
 
-      <div class="card my-4 py-4 px-6 border bg-white rounded shadow">
+      <div class="card my-4 py-4 px-6 border bg-white rounded shadow" data-aos="zoom-in-right">
         <h2 class="text-2xl font-bold my-3">"Games and Sports I am into"</h2>
         <p class="text-gray-500">
           I'm pretty much average in sports but I do enjoy playing them. I have
@@ -210,7 +210,7 @@
         </p>
       </div>
 
-      <div class="card my-4 py-4 px-6 border bg-white rounded shadow">
+      <div class="card my-4 py-4 px-6 border bg-white rounded shadow" data-aos="zoom-in-left">
         <h2 class="text-2xl font-bold my-3">
           "My screen time is reserved for real life."
         </h2>

@@ -42,6 +42,7 @@
             v-for="item in gallery.results"
             :key="item.id"
             class="card my-4 p-4 border rounded shadow"
+            :data-aos="randomAOSEffect()"
           >
             <div v-if="item.tags && item.tags.length" class="my-4">
               <span
@@ -108,6 +109,29 @@ definePageMeta({
 const galleryStore = useGallery();
 const isLoading = computed(() => galleryStore.isLoading);
 const gallery = computed(() => galleryStore.getGalleryList);
+
+const randomAOSEffect = () => {
+  // return a random aos effect
+  const effectList = [
+    "fade-up",
+    "fade-down",
+    "fade-left",
+    "fade-right",
+    "fade-up-right",
+    "fade-up-left",
+    "fade-down-right",
+    "fade-down-left",
+    "flip-up",
+    "flip-down",
+    "flip-left",
+    "flip-right",
+    "slide-left",
+    "slide-right",
+    "zoom-in",
+    "zoom-out",
+  ];
+  return effectList[Math.floor(Math.random() * effectList.length)];
+};
 
 const getFullImageUrl = (image) => {
   return `https://softgenie.org${image}`;

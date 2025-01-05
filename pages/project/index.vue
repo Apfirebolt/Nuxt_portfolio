@@ -43,6 +43,7 @@
             v-for="project in projects.results"
             :key="project.id"
             class="card my-4 p-4 border rounded shadow"
+            :data-aos="randomAOSEffect()"
           >
             <div v-if="project.tags && project.tags.length" class="my-4">
               <span
@@ -113,6 +114,29 @@ const projects = computed(() => projectStore.getProjectList);
 
 const getFullImageUrl = (image) => {
   return `https://softgenie.org${image}`;
+};
+
+const randomAOSEffect = () => {
+  // return a random aos effect
+  const effectList = [
+    "fade-up",
+    "fade-down",
+    "fade-left",
+    "fade-right",
+    "fade-up-right",
+    "fade-up-left",
+    "fade-down-right",
+    "fade-down-left",
+    "flip-up",
+    "flip-down",
+    "flip-left",
+    "flip-right",
+    "slide-left",
+    "slide-right",
+    "zoom-in",
+    "zoom-out",
+  ];
+  return effectList[Math.floor(Math.random() * effectList.length)];
 };
 
 const viewImageInFullSize = (image) => {
