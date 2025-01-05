@@ -7,7 +7,7 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: "en",
       },
-      title: "Amiibo Database App",
+      title: "APIIIIT.com - My Portfolio",
       meta: [
         {
           name: "viewport",
@@ -16,7 +16,7 @@ export default defineNuxtConfig({
         {
           name: "description",
           content:
-            "An App in Nuxt JS which integrates with Amiibo API to fetch Amiibo data.",
+            "A portfolio website of Amit Prafulla, a Full Stack Developer with 6+ years of experience working with web applications.",
         },
         { name: "format-detection", content: "telephone=no" },
         { property: "author", content: "Apfirebolt" },
