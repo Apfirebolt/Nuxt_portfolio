@@ -40,7 +40,7 @@
           </div>
           <!-- Close Text Column -->
       </div>
-        <div v-if="blog">
+        <div v-if="blog" class="bg-white p-4 rounded shadow-lg mt-4">
           
           <div v-html="blog.content"></div>
           <div v-if="blog.images && blog.images.length">

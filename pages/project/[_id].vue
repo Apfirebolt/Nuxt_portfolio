@@ -16,9 +16,7 @@
               alt="Winding mountain road"
             />
           </div>
-          <!-- Close Image Column -->
-
-          <!-- Text Column -->
+          
           <div
             class="max-w-lg bg-white md:max-w-2xl md:z-10 md:shadow-lg md:absolute md:top-0 md:mt-48 lg:w-3/5 lg:left-0 lg:mt-20 lg:ml-20 xl:mt-24 xl:ml-12"
           >
@@ -56,7 +54,7 @@
           </div>
           <!-- Close Text Column -->
         </div>
-        <div v-if="project">
+        <div v-if="project" class="bg-white p-4 rounded shadow-lg mt-4">
           <div v-html="project.description"></div>
 
           <div v-if="project.images && project.images.length">

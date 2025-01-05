@@ -40,11 +40,11 @@
           <div
             v-for="blog in blogs.results"
             :key="blog.id"
-            class="card my-4 p-4 border rounded bg-secondary shadow"
+            class="card my-4 p-4 border bg-white rounded shadow-lg"
             :data-aos="randomAOSEffect()"
           >
             <div v-if="blog.tags && blog.tags.length" class="my-4">
-              <span v-for="tag in blog.tags" :key="tag" class="inline-block bg-gray-200 text-gray-700 font-semibold mr-2 px-2.5 py-0.5 rounded-lg shadow-lg">
+              <span v-for="tag in blog.tags" :key="tag" class="inline-block bg-primary text-primary-dark font-semibold mr-2 px-2.5 py-0.5 rounded-lg shadow-lg">
                 {{ tag.name }}
               </span>
             </div>
@@ -65,7 +65,7 @@
                     </span>
                     <button
                       @click="viewImageInFullSize(item.image)"
-                      class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-sm font-semibold hover:bg-blue-200"
+                      class="bg-primary-dark text-primary py-2 px-3 rounded-full font-semibold hover:bg-gray-500"
                     >
                       View Full Size
                     </button>
@@ -78,7 +78,7 @@
             </p>
             <button
               @click="goToDetail(blog)"
-              class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-sm font-semibold hover:bg-green-200 mt-4"
+              class="bg-secondary-dark text-primary py-2 px-3 rounded-full font-semibold mt-4"
             >
               View Details
             </button>

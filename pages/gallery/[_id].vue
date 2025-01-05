@@ -35,7 +35,7 @@
           </div>
           <!-- Close Text Column -->
       </div>
-        <div v-if="gallery">
+        <div v-if="gallery" class="bg-white p-4 rounded shadow-lg mt-4">
           <div v-html="gallery.description"></div>
           <div v-if="gallery.images && gallery.images.length">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
