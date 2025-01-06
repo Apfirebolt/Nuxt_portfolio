@@ -65,7 +65,7 @@
                 class="mb-4 break-inside-avoid"
               >
                 <img
-                  @click="viewImageInFullSize(item.image)"
+                  @click="viewImageInFullSize(item)"
                   :src="getFullImageUrl(item.image)"
                   alt="Project Image"
                   class="w-full h-auto rounded"
@@ -112,24 +112,27 @@
                 >
                   <div class="mt-2">
                     <div class="mt-4 flex justify-between">
-                    <button
-                      type="button"
-                      class="inline-flex justify-center rounded-md border border-transparent bg-secondary-dark p-2 text-sm font-medium text-primary hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 mr-2"
-                      @click="prevImage"
-                    >
-                      <ChevronLeftIcon class="h-5 w-5" />
-                    </button>
-                    <button
-                      type="button"
-                      class="inline-flex justify-center rounded-md border border-transparent bg-secondary-dark p-2 text-sm font-medium text-primary hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      @click="nextImage"
-                    >
-                      <ChevronRightIcon class="h-5 w-5" />
-                    </button>
-                  </div>
+                      <button
+                        type="button"
+                        class="inline-flex justify-center rounded-md border border-transparent bg-secondary-dark p-2 text-sm font-medium text-primary hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 mr-2"
+                        @click="prevImage"
+                      >
+                        <ChevronLeftIcon class="h-5 w-5" />
+                      </button>
+                      <p class="text-lg text-secondary-dark">
+                        {{ selectedImage.caption }}
+                      </p>
+                      <button
+                        type="button"
+                        class="inline-flex justify-center rounded-md border border-transparent bg-secondary-dark p-2 text-sm font-medium text-primary hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        @click="nextImage"
+                      >
+                        <ChevronRightIcon class="h-5 w-5" />
+                      </button>
+                    </div>
                     <img
                       v-if="selectedImage"
-                      :src="selectedImage"
+                      :src="getFullImageUrl(selectedImage.image)"
                       alt="Selected Image"
                       class="w-full h-auto rounded mt-4"
                     />
@@ -183,9 +186,9 @@ const prevImage = () => {
   // get the previous image
   const prevImage =
     currentIndex > 0
-      ? project.value.images[currentIndex - 1].image
-      : project.value.images[project.value.images.length - 1].image;
-  selectedImage.value = getFullImageUrl(prevImage);
+      ? project.value.images[currentIndex - 1]
+      : project.value.images[project.value.images.length - 1];
+  selectedImage.value = prevImage;
 };
 
 const nextImage = () => {
@@ -196,9 +199,9 @@ const nextImage = () => {
   // get the next image
   const nextImage =
     currentIndex < project.value.images.length - 1
-      ? project.value.images[currentIndex + 1].image
-      : project.value.images[0].image;
-  selectedImage.value = getFullImageUrl(nextImage);
+      ? project.value.images[currentIndex + 1]
+      : project.value.images[0];
+  selectedImage.value = nextImage;
 };
 
 const route = useRoute();
@@ -208,7 +211,7 @@ const getFullImageUrl = (image) => {
 };
 
 const viewImageInFullSize = (image) => {
-  selectedImage.value = getFullImageUrl(image);
+  selectedImage.value = image;
   openModal();
   // window.open(`https://softgenie.org${image}`, "_blank");
 };
