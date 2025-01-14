@@ -1,26 +1,40 @@
 <template>
   <footer class="bg-primary text-primary-dark">
   <div class="max-w-screen-lg py-10 px-4 sm:px-6 text-gray-800 sm:flex justify-between mx-auto">
-      <div class="p-5 sm:w-2/12 border-r">
-          <div class="text-sm uppercase text-indigo-600 font-bold">Menu</div>
-          <ul>
-            <li v-for="item in navigation" :key="item.name" class="my-2">
-                <a class="hover:text-indigo-600" :href="`/${item.name}`">{{ item.path }}</a>
-            </li>
-          </ul>
-      </div>
-      
-      <div class="p-5 sm:w-10/12">
-          <div class="text-sm uppercase text-indigo-600 font-bold">Contact Me</div>
-          <ul>
-              <li class="my-2">
-                  <a class="hover:text-indigo-600" href="#">Prayagraj/Allahabad, Uttar Pradesh, India</a>
-              </li>
-              <li class="my-2">
-                  <a class="hover:text-indigo-600" href="#">aspper20@gmail.com</a>
-              </li>
-          </ul>
-      </div>
+    <div class="p-5 sm:w-2/12 border-r">
+        <div class="text-sm uppercase text-indigo-600 font-bold">Menu</div>
+        <ul>
+        <li v-for="item in navigation" :key="item.name" class="my-2">
+            <a class="hover:text-indigo-600" :href="`/${item.name}`">{{ item.path }}</a>
+        </li>
+        </ul>
+    </div>
+    
+    <div class="p-5 sm:w-6/12 border-r">
+        <div class="text-sm uppercase text-indigo-600 font-bold">Contact Me</div>
+        <ul>
+          <li class="my-2">
+            <a class="hover:text-indigo-600" href="#">Prayagraj/Allahabad, Uttar Pradesh, India</a>
+          </li>
+          <li class="my-2">
+            <a class="hover:text-indigo-600" href="#">aspper20@gmail.com</a>
+          </li>
+        </ul>
+    </div>
+
+    <div class="p-5 sm:w-4/12">
+        <div class="text-sm uppercase text-indigo-600 font-bold">Follow Me</div>
+        <ul>
+          <li class="my-2">
+            <a class="hover:text-indigo-600" href="https://twitter.com">Twitter</a>
+          </li>
+          <li class="my-2">
+            <a class="hover:text-indigo-600" href="https://facebook.com">Facebook</a>
+          </li>
+        </ul>
+    </div>
+
+
   </div>
   <div class="flex py-5 m-auto text-gray-800 text-sm flex-col items-center border-t max-w-screen-xl">
       <div class="md:flex-auto md:flex-row-reverse mt-2 flex-row flex">
