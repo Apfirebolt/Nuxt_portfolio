@@ -236,7 +236,7 @@
   </NuxtLayout>
 </template>
 <script setup>
-import { onMounted, computed, ref } from "vue";
+import { onMounted } from "vue";
 import { gsap } from 'gsap';
 
 // apply slide in left on hero class using gsap
@@ -248,9 +248,8 @@ onMounted(() => {
   });
 });
 
-definePageMeta({
-  layout: false,
-  title: "My Portfolio",
+useSeoMeta({
+  title: "Amit Prafulla - My Portfolio",
   description: "This is the homepage of my portfolio",
 });
 </script>

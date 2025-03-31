@@ -1,7 +1,7 @@
 <template>
   <NuxtLayout name="default">
     <div class="bg-gradient-to-r from-primary-dark to-secondary-dark py-4 px-6">
-      <div v-if="project && project.images" class="container mx-auto bg-white px-4 py-6 rounded shadow-lg">
+      <div v-if="project && project.images" class="container mx-auto bg-white px-4 py-6 rounded shadow-lg" data-aos="fade-left">
         <div class="flex justify-between items-center mb-4">
           <h1 class="text-3xl font-bold mb-6 mt-3">
             {{ project.title }}
