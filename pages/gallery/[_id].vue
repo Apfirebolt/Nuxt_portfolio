@@ -1,216 +1,168 @@
 <template>
   <NuxtLayout name="default">
-    <div class="gallery-content bg-gradient-to-r from-primary-dark to-secondary-dark py-4 px-6">
-      <Loader v-if="isLoading" />
-      <div v-else>
-        <div
-          class="hero relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl"
-        >
-          <!-- Image Column -->
-          <div class="w-full h-64 lg:w-1/2 lg:h-auto">
-            <img
-              class="h-500 w-full object-cover"
-              src="https://softgenie.org/media/images/generic/gallery.jpeg"
-              alt="Ladakh lake"
-            />
-          </div>
-          <!-- Close Image Column -->
-
-          <!-- Text Column -->
-          <div
-            class="max-w-lg bg-white md:max-w-2xl md:z-10 md:shadow-lg md:absolute md:top-0 md:mt-48 lg:w-3/5 lg:left-0 lg:mt-20 lg:ml-20 xl:mt-24 xl:ml-12"
+    <div class="bg-gradient-to-r from-primary-dark to-secondary-dark py-4 px-6">
+      <div v-if="gallery && gallery.images" class="container mx-auto bg-white px-4 py-6 rounded shadow-lg" data-aos="fade-up">
+        <div class="flex justify-between items-center mb-4">
+          <h1 class="text-3xl font-bold mb-6 mt-3">
+            {{ gallery.title }}
+          </h1>
+          <p>
+            <span class="text-primary-dark font-semibold">Posted on:</span>
+            {{ new Date(gallery.date_posted).toLocaleDateString() }}
+          </p>
+        </div>
+        <div class="mb-4 flex flex-wrap gap-2">
+          <span
+            v-for="(tag, index) in gallery.tags"
+            :key="index"
+            class="bg-primary text-black px-3 py-1 rounded-full text-sm shadow"
           >
-            <!-- Text Wrapper -->
-            <div class="flex flex-col p-12 md:px-16">
-              <h2
-                class="text-2xl font-medium uppercase text-secondary-dark lg:text-4xl"
-              >
-              {{ gallery.title ? gallery.title : "Gallery Detail" }}
-              </h2>
-              <p class="text-sm text-secondary-dark mt-4">
-                Posted on: {{ new Date(gallery.date_posted).toLocaleDateString() }}
-              </p>
-            </div>
-            <!-- Close Text Wrapper -->
-          </div>
-          <!-- Close Text Column -->
-      </div>
-        <div v-if="gallery" class="bg-white p-4 rounded shadow-lg mt-4">
-          <div v-html="gallery.description"></div>
-          <div v-if="gallery.images && gallery.images.length">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div v-for="item in gallery.images" :key="item.id" class="my-2">
-                <img
-                  @click="viewImageInFullSize(item)"
-                  :src="getFullImageUrl(item.image)"
-                  alt="Gallery Image"
-                  class="w-full h-auto rounded"
-                />
-                <div class="flex items-center justify-between mt-4">
-                  <button
-                    @click="viewImageInFullSize(item.image)"
-                    class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-sm font-semibold hover:bg-blue-200"
-                  >
-                    View Full Size
-                  </button>
-                </div>
-              </div>
-            </div>
+            {{ tag.name }}
+          </span>
+        </div>
+        <div v-if="isClient">
+          <p v-html="gallery.description" class="text-white"></p>
+        </div>
+        <div class="gallery grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div v-for="(image, index) in gallery.images" :key="index" class="card">
+            <img
+              :src="`https://softgenie.org${image.image}`"
+              alt="Gallery Image"
+              class="w-full h-auto rounded shadow cursor-pointer"
+              @click="openLightbox(index)"
+            />
           </div>
         </div>
       </div>
-      <TransitionRoot appear :show="isOpen" as="template">
-        <Dialog as="div" @close="closeModal" class="relative z-10">
-          <TransitionChild
-            as="template"
-            enter="duration-300 ease-out"
-            enter-from="opacity-0"
-            enter-to="opacity-100"
-            leave="duration-200 ease-in"
-            leave-from="opacity-100"
-            leave-to="opacity-0"
-          >
-            <div class="fixed inset-0 bg-black/25" />
-          </TransitionChild>
+      <div v-else-if="pending">
+        <Loader />
+      </div>
+      <div v-else-if="error">
+        <p>Error loading gallery. Please try again later.</p>
+      </div>
+      <transition name="lightbox-fade">
+        <div
+          v-if="showLightbox && isClient"
+          class="lightbox fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex items-center justify-center z-50"
+        >
+          <button @click="closeLightbox" class="absolute top-4 right-4 text-white text-3xl">&times;</button>
+          <transition name="fade">
+            <img
+              v-if="showImage"
+              :src="`https://softgenie.org${gallery.images[currentImageIndex].image}`"
+              alt="Lightbox Image"
+              class="max-w-full max-h-full"
+            />
+          </transition>
 
-          <div class="fixed inset-0 overflow-y-auto">
-            <div
-              class="flex min-h-full items-center justify-center p-4 text-center"
-            >
-              <TransitionChild
-                as="template"
-                enter="duration-300 ease-out"
-                enter-from="opacity-0 scale-95"
-                enter-to="opacity-100 scale-100"
-                leave="duration-200 ease-in"
-                leave-from="opacity-100 scale-100"
-                leave-to="opacity-0 scale-95"
-              >
-                <DialogPanel
-                  class="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
-                >
-                  <div class="mt-2">
-                    <div class="mt-4 flex justify-between">
-                      <button
-                        type="button"
-                        class="inline-flex justify-center rounded-md border border-transparent bg-secondary-dark p-2 text-sm font-medium text-primary hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 mr-2"
-                        @click="prevImage"
-                      >
-                        <ChevronLeftIcon class="h-5 w-5" />
-                      </button>
-                      <p class="text-lg text-secondary-dark">
-                        {{ selectedImage.caption }}
-                      </p>
-                      <button
-                        type="button"
-                        class="inline-flex justify-center rounded-md border border-transparent bg-secondary-dark p-2 text-sm font-medium text-primary hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        @click="nextImage"
-                      >
-                        <ChevronRightIcon class="h-5 w-5" />
-                      </button>
-                    </div>
-                    <img
-                      v-if="selectedImage"
-                      :src="getFullImageUrl(selectedImage.image)"
-                      alt="Selected Image"
-                      class="w-full h-auto rounded mt-4"
-                    />
-                  </div>
-                </DialogPanel>
-              </TransitionChild>
-            </div>
+          <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white flex gap-4">
+            <button @click="prevImage" class="text-2xl">&lt;</button>
+            <span>{{ currentImageIndex + 1 }} / {{ gallery.images.length }}</span>
+            <button @click="nextImage" class="text-2xl">&gt;</button>
           </div>
-        </Dialog>
-      </TransitionRoot>
+        </div>
+      </transition>
     </div>
   </NuxtLayout>
 </template>
 
 <script setup>
-import { onMounted, computed } from "vue";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/outline";
-import {
-  TransitionRoot,
-  TransitionChild,
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-} from "@headlessui/vue";
-
-definePageMeta({
-  layout: false,
-  title: "My Portfolio - Gallery Detail",
-  description: "Collection of my works",
-});
-
-const isOpen = ref(false);
-const selectedImage = ref(null);
-const galleryStore = useGallery();
-const isLoading = computed(() => galleryStore.isLoading);
-const gallery = computed(() => galleryStore.getGallery);
-const visibleRef = ref(false);
-const indexRef = ref(0);
-const imgs = computed(() =>
-  gallery && gallery.value && gallery.value.images.map((image) => ({
-    src: getFullImageUrl(image.image),
-    caption: image.caption,
-  }))
-);
+import { ref, onMounted, nextTick } from "vue";
+import { useRoute, useAsyncData, useSeoMeta } from "#imports";
 
 const route = useRoute();
+const isClient = ref(false);
+const galleryId = ref(route.params._id);
+const showLightbox = ref(false);
+const currentImageIndex = ref(0);
+const showImage = ref(true);
 
-const showImg = (index) => {
-  indexRef.value = index;
-  visibleRef.value = true;
-};
-const onHide = () => (visibleRef.value = false);
+const {
+  data: gallery,
+  pending,
+  error,
+  refresh,
+} = await useAsyncData(
+  "gallery",
+  async () => {
+    try {
+      const response = await $fetch(
+        `https://softgenie.org/api/gallery-posts/${galleryId.value}`
+      );
+      return response;
+    } catch (err) {
+      console.error("Error fetching gallery:", err);
+      throw err;
+    }
+  },
+  {
+    key: () => `gallery-${galleryId.value}`,
+  }
+);
 
-const getFullImageUrl = (image) => {
-  return `https://softgenie.org${image}`;
-};
+if (gallery.value) {
+  useSeoMeta({
+    title: `${gallery.value.title} - Gallery Details`,
+    description:
+      gallery.value.meta_description ||
+      "Explore the gallery images and details.",
+  });
+}
 
-const closeModal = () => {
-  isOpen.value = false;
-};
-
-const openModal = () => {
-  isOpen.value = true;
-};
-
-const prevImage = () => {
-  // get the index of the current image
-  const currentIndex = gallery.value.images.findIndex(
-    (image) => image.image === selectedImage.value
-  );
-  // get the previous image
-  const prevImage =
-    currentIndex > 0
-      ? gallery.value.images[currentIndex - 1]
-      : gallery.value.images[gallery.value.images.length - 1];
-  selectedImage.value = prevImage;
-};
-
-const nextImage = () => {
-  // get the index of the current image
-  const currentIndex = gallery.value.images.findIndex(
-    (image) => image.image === selectedImage.value
-  );
-  // get the next image
-  const nextImage =
-    currentIndex < gallery.value.images.length - 1
-      ? gallery.value.images[currentIndex + 1]
-      : gallery.value.images[0];
-  selectedImage.value = nextImage;
-};
-
-const viewImageInFullSize = (image) => {
-  selectedImage.value = image;
-  openModal();
-  // window.open(`https://softgenie.org${image}`, "_blank");
-};
-
-onMounted(async () => {
-  const galleryId = route.params._id;
-  await galleryStore.getGalleryAction(galleryId);
+onMounted(() => {
+  isClient.value = true;
 });
+
+const openLightbox = (index) => {
+  currentImageIndex.value = index;
+  showLightbox.value = true;
+};
+
+const closeLightbox = () => {
+  showLightbox.value = false;
+};
+
+const nextImage = async () => {
+  showImage.value = false;
+  await nextTick();
+  currentImageIndex.value = (currentImageIndex.value + 1) % gallery.value.images.length;
+  showImage.value = true;
+};
+
+const prevImage = async () => {
+  showImage.value = false;
+  await nextTick();
+  currentImageIndex.value = (currentImageIndex.value - 1 + gallery.value.images.length) % gallery.value.images.length;
+  showImage.value = true;
+};
 </script>
+
+<style scoped>
+.lightbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.lightbox-fade-enter-active,
+.lightbox-fade-leave-active {
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.lightbox-fade-enter,
+.lightbox-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
+}
+</style>

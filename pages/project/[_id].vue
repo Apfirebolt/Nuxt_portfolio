@@ -1,229 +1,191 @@
 <template>
   <NuxtLayout name="default">
-    <div
-      class="homepage-content bg-gradient-to-r from-primary-dark to-secondary-dark py-4 px-6"
-    >
-      <Loader v-if="isLoading" />
-      <div v-else>
-        <div
-          class="hero relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl"
-        >
-          <!-- Image Column -->
-          <div class="w-full h-64 lg:w-1/2 lg:h-auto">
-            <img
-              class="h-full w-full object-cover"
-              src="@/assets/laptop.jpg"
-              alt="Winding mountain road"
-            />
-          </div>
-
-          <div
-            class="max-w-lg bg-white md:max-w-2xl md:z-10 md:shadow-lg md:absolute md:top-0 md:mt-48 lg:w-3/5 lg:left-0 lg:mt-20 lg:ml-20 xl:mt-24 xl:ml-12"
-          >
-            <!-- Text Wrapper -->
-            <div class="flex flex-col p-12 md:px-16">
-              <h2
-                class="text-2xl font-medium uppercase text-secondary-dark lg:text-3xl"
-              >
-                {{ project.title ? project.title : "Project Detail" }}
-              </h2>
-              <div v-if="technologies.length" class="my-4">
-                <span
-                  v-for="tech in technologies"
-                  :key="tech"
-                  class="inline-block bg-primary text-primary-dark font-semibold mr-2 px-2.5 py-0.5 rounded-lg shadow-lg"
-                >
-                  {{ tech }}
-                </span>
-                <p class="text-secondary-dark mt-4">
-                  Posted on:
-                  {{ new Date(project.date_posted).toLocaleDateString() }}
-                </p>
-                <div v-if="project.project_link" class="mt-4">
-                  <a
-                    :href="project.project_link"
-                    target="_blank"
-                    class="text-blue-500 hover:underline"
-                  >
-                    {{ project.project_link }}
-                  </a>
-                </div>
-              </div>
-            </div>
-            <!-- Close Text Wrapper -->
-          </div>
-          <!-- Close Text Column -->
+    <div class="bg-gradient-to-r from-primary-dark to-secondary-dark py-4 px-6">
+      <div v-if="project && project.images" class="container mx-auto bg-white px-4 py-6 rounded shadow-lg">
+        <div class="flex justify-between items-center mb-4">
+          <h1 class="text-3xl font-bold mb-6 mt-3">
+            {{ project.title }}
+          </h1>
+          <p>
+            <span class="text-primary-dark font-semibold">Posted on:</span>
+            {{ new Date(project.date_posted).toLocaleDateString() }}
+          </p>
         </div>
-        <div v-if="project" class="bg-white p-4 rounded shadow-lg mt-4">
-          <div v-html="project.description"></div>
 
-          <div v-if="project.images && project.images.length">
-            <div class="columns-1 md:columns-3 gap-4">
-              <div
-                v-for="item in project.images"
-                :key="item.id"
-                class="mb-4 break-inside-avoid"
-              >
-                <img
-                  @click="viewImageInFullSize(item)"
-                  :src="getFullImageUrl(item.image)"
-                  alt="Project Image"
-                  class="w-full h-auto rounded"
-                />
-                <div class="flex items-center justify-between mt-4">
-                  <span>
-                    {{ item.caption }}
-                  </span>
-                </div>
-              </div>
-            </div>
+        <div class="my-3 flex flex-wrap items-center gap-2"> 
+          <h3 class="bg-primary border-4 border-secondary px-2 py-1">Tags</h3>
+          <ul v-if="project.tags.length > 0" class="flex flex-wrap gap-2">
+            <li v-for="(tag, index) in project.tags" :key="index" class="bg-primary-dark text-center text-white px-4 py-1 rounded-full text-sm shadow mr-2">
+              {{ tag.name }}
+            </li>
+          </ul>
+          <p v-else class="text-primary-dark">
+            No tags available for this project.
+          </p>
+        </div>
+        
+        <div class="my-3 flex flex-wrap items-center gap-2"> 
+          <h3 class="bg-primary border-4 border-secondary px-2 py-1">Technologies used</h3>
+          <ul class="flex flex-wrap gap-2">
+            <li v-for="(tech, index) in project.technology.split(',')" :key="index" class="bg-primary-dark text-center text-white px-4 py-1 rounded-full text-sm shadow mr-2">
+              {{ tech }}
+            </li>
+          </ul>
+        </div>
+        <div class="my-3 flex flex-wrap items-center gap-2"> 
+          <h3 class="bg-primary border-4 border-secondary px-2 py-1">Project URL</h3>
+          <span @click="goToProject(project)" class="bg-primary-dark text-center text-white px-4 py-1 rounded-full text-sm shadow mr-2 hover:bg-danger transition-all duration-200 ease-linear hover:cursor-pointer">
+            {{ project.project_link }}
+          </span>
+        </div>
+        <div v-if="isClient">
+          <p v-html="project.description" class="text-white"></p>
+        </div>
+        <div class="gallery grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div v-for="(image, index) in project.images" :key="index" class="card">
+            <img
+              :src="`https://softgenie.org${image.image}`"
+              alt="Project Image"
+              class="w-full h-auto rounded shadow cursor-pointer"
+              @click="openLightbox(index)"
+            />
           </div>
         </div>
       </div>
-      <TransitionRoot appear :show="isOpen" as="template">
-        <Dialog as="div" @close="closeModal" class="relative z-10">
-          <TransitionChild
-            as="template"
-            enter="duration-300 ease-out"
-            enter-from="opacity-0"
-            enter-to="opacity-100"
-            leave="duration-200 ease-in"
-            leave-from="opacity-100"
-            leave-to="opacity-0"
-          >
-            <div class="fixed inset-0 bg-black/25" />
-          </TransitionChild>
+      <div v-else-if="pending">
+        <Loader />
+      </div>
+      <div v-else-if="error">
+        <p>Error loading project. Please try again later.</p>
+      </div>
+      <transition name="lightbox-fade">
+        <div
+          v-if="showLightbox && isClient"
+          class="lightbox fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex items-center justify-center z-50"
+        >
+          <button @click="closeLightbox" class="absolute top-4 right-4 text-white text-3xl">&times;</button>
+          <transition name="fade">
+            <img
+              v-if="showImage"
+              :src="`https://softgenie.org${project.images[currentImageIndex].image}`"
+              alt="Lightbox Image"
+              class="max-w-full max-h-full"
+            />
+          </transition>
 
-          <div class="fixed inset-0 overflow-y-auto">
-            <div
-              class="flex min-h-full items-center justify-center p-4 text-center"
-            >
-              <TransitionChild
-                as="template"
-                enter="duration-300 ease-out"
-                enter-from="opacity-0 scale-95"
-                enter-to="opacity-100 scale-100"
-                leave="duration-200 ease-in"
-                leave-from="opacity-100 scale-100"
-                leave-to="opacity-0 scale-95"
-              >
-                <DialogPanel
-                  class="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
-                >
-                  <div class="mt-2">
-                    <div class="mt-4 flex justify-between">
-                      <button
-                        type="button"
-                        class="inline-flex justify-center rounded-md border border-transparent bg-secondary-dark p-2 text-sm font-medium text-primary hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 mr-2"
-                        @click="prevImage"
-                      >
-                        <ChevronLeftIcon class="h-5 w-5" />
-                      </button>
-                      <p class="text-lg text-secondary-dark">
-                        {{ selectedImage.caption }}
-                      </p>
-                      <button
-                        type="button"
-                        class="inline-flex justify-center rounded-md border border-transparent bg-secondary-dark p-2 text-sm font-medium text-primary hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        @click="nextImage"
-                      >
-                        <ChevronRightIcon class="h-5 w-5" />
-                      </button>
-                    </div>
-                    <img
-                      v-if="selectedImage"
-                      :src="getFullImageUrl(selectedImage.image)"
-                      alt="Selected Image"
-                      class="w-full h-auto rounded mt-4"
-                    />
-                  </div>
-                </DialogPanel>
-              </TransitionChild>
-            </div>
+          <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white flex gap-4">
+            <button @click="prevImage" class="text-2xl">&lt;</button>
+            <span>{{ currentImageIndex + 1 }} / {{ project.images.length }}</span>
+            <button @click="nextImage" class="text-2xl">&gt;</button>
           </div>
-        </Dialog>
-      </TransitionRoot>
+        </div>
+      </transition>
     </div>
   </NuxtLayout>
 </template>
 
 <script setup>
-import { onMounted, computed, ref } from "vue";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/outline";
-import {
-  TransitionRoot,
-  TransitionChild,
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-} from "@headlessui/vue";
-
-definePageMeta({
-  layout: false,
-  title: "My Portfolio - Project Detail",
-  description: "Details of my project",
-});
-
-const selectedImage = ref(null);
-const isOpen = ref(false);
-const projectStore = useProject();
-const isLoading = computed(() => projectStore.isLoading);
-const project = computed(() => projectStore.getProject);
-
-const closeModal = () => {
-  isOpen.value = false;
-};
-
-const openModal = () => {
-  isOpen.value = true;
-};
-
-const prevImage = () => {
-  // get the index of the current image
-  const currentIndex = project.value.images.findIndex(
-    (image) => image.image === selectedImage.value
-  );
-  // get the previous image
-  const prevImage =
-    currentIndex > 0
-      ? project.value.images[currentIndex - 1]
-      : project.value.images[project.value.images.length - 1];
-  selectedImage.value = prevImage;
-};
-
-const nextImage = () => {
-  // get the index of the current image
-  const currentIndex = project.value.images.findIndex(
-    (image) => image.image === selectedImage.value
-  );
-  // get the next image
-  const nextImage =
-    currentIndex < project.value.images.length - 1
-      ? project.value.images[currentIndex + 1]
-      : project.value.images[0];
-  selectedImage.value = nextImage;
-};
+import { ref, onMounted, nextTick } from "vue";
+import { useRoute, useAsyncData, useSeoMeta } from "#imports";
 
 const route = useRoute();
+const isClient = ref(false);
+const projectId = ref(route.params._id);
+const showLightbox = ref(false);
+const currentImageIndex = ref(0);
+const showImage = ref(true);
 
-const getFullImageUrl = (image) => {
-  return `https://softgenie.org${image}`;
+const goToProject = (project) => {
+  // open link in new tab
+  window.open(project.project_link, "_blank");
 };
 
-const viewImageInFullSize = (image) => {
-  selectedImage.value = image;
-  openModal();
-  // window.open(`https://softgenie.org${image}`, "_blank");
+const {
+  data: project,
+  pending,
+  error,
+  refresh,
+} = await useAsyncData(
+  "project",
+  async () => {
+    try {
+      const response = await $fetch(
+        `https://softgenie.org/api/projects/${projectId.value}`
+      );
+      return response;
+    } catch (err) {
+      console.error("Error fetching project:", err);
+      throw err;
+    }
+  },
+  {
+    key: () => `project-${projectId.value}`,
+  }
+);
+
+if (project.value) {
+  useSeoMeta({
+    title: `${project.value.title} - Project Details`,
+    description:
+      project.value.meta_description ||
+      "Explore the project images and details.",
+  });
+}
+
+onMounted(() => {
+  isClient.value = true;
+});
+
+const openLightbox = (index) => {
+  currentImageIndex.value = index;
+  showLightbox.value = true;
 };
 
-const technologies = computed(() => {
-  return project.value && project.value.technology
-    ? project.value.technology.split(",")
-    : [];
-});
+const closeLightbox = () => {
+  showLightbox.value = false;
+};
 
-onMounted(async () => {
-  const projectId = route.params._id;
-  await projectStore.getProjectAction(projectId);
-});
+const nextImage = async () => {
+  showImage.value = false;
+  await nextTick();
+  currentImageIndex.value = (currentImageIndex.value + 1) % project.value.images.length;
+  showImage.value = true;
+};
+
+const prevImage = async () => {
+  showImage.value = false;
+  await nextTick();
+  currentImageIndex.value = (currentImageIndex.value - 1 + project.value.images.length) % project.value.images.length;
+  showImage.value = true;
+};
 </script>
+
+<style scoped>
+.lightbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.lightbox-fade-enter-active,
+.lightbox-fade-leave-active {
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.lightbox-fade-enter,
+.lightbox-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
+}
+</style>
