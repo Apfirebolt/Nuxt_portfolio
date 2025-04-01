@@ -146,7 +146,9 @@ const goToDetail = async (blog) => {
 };
 
 onMounted(() => {
-  blogStore.getBlogsAction();
+  if (!blogs.value || !blogs.value.results || !blogs.value.results.length) {
+    blogStore.getBlogsAction();
+  }
   gsap.from('.hero', {
     scale: 0.8,
     opacity: 0,

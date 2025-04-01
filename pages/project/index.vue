@@ -153,7 +153,9 @@ const goToDetail = async (project) => {
 };
 
 onMounted(() => {
-  projectStore.getProjectsAction();
+  if (!projects.value || !projects.value.results || !projects.value.results.length) {
+    projectStore.getProjectsAction();
+  }
 
   gsap.from('.hero', {
     x: 100,

@@ -150,7 +150,10 @@ const goToDetail = async (gallery) => {
 };
 
 onMounted(() => {
-  galleryStore.getGalleriesAction();
+  if (!gallery.value || !gallery.value.results || !gallery.value.results.length) {
+    galleryStore.getGalleriesAction();
+  }
+  
   gsap.from('.hero', {
     y: -100,
     scale: 0.8,
