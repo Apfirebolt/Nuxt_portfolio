@@ -1,0 +1,1 @@
+import{J as e,L as t,V as n,_ as r,b as i,t as a}from"./D0miW0A_.js";import{t as o}from"#entry";import{n as s,t as c}from"./D95Xi3WW.js";var l={};function u(o,l){let u=s,d=c;return t(),r(`div`,null,[i(u),i(a,{name:`fade`,mode:`out-in`},{default:e(()=>[n(o.$slots,`default`)]),_:3}),i(d)])}var d=o(l,[[`render`,u]]);export{d as default};

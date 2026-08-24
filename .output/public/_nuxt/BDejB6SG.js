@@ -1,0 +1,1 @@
+function e({store:e,redirect:t}){if(!e.$pinia.useAuthStore().token)return t(`/login`)}export{e as default};
