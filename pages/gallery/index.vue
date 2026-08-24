@@ -1,164 +1,180 @@
 <template>
   <NuxtLayout name="default">
-    <div class="homepage-content bg-gradient-to-r from-primary-dark to-secondary-dark py-4 px-6">
-      <div
-          class="hero relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl"
-        >
-          <!-- Image Column -->
-          <div class="w-full h-64 lg:w-1/2 lg:h-auto">
-            <img
-              class="h-500 w-full object-cover"
-              src="https://softgenie.org/media/images/generic/gallery.jpeg"
-              alt="Ladakh lake"
-            />
-          </div>
-          <!-- Close Image Column -->
+    <div class="min-h-screen bg-slate-50 text-slate-800 antialiased selection:bg-indigo-500 selection:text-white">
+      
+      <section class="relative overflow-hidden border-b border-slate-200 bg-white py-16 sm:py-24">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="hero grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
+            
+            <div class="flex flex-col justify-center lg:col-span-7">
+              <div class="inline-flex items-center gap-2 self-start rounded-full border border-indigo-100 bg-indigo-50/80 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-indigo-700">
+                <span class="h-2 w-2 rounded-full bg-indigo-600"></span>
+                Visual Log &amp; Expeditions
+              </div>
 
-          <!-- Text Column -->
-          <div
-            class="max-w-lg bg-white md:max-w-2xl md:z-10 md:shadow-lg md:absolute md:top-0 md:mt-48 lg:w-3/5 lg:left-0 lg:mt-20 lg:ml-20 xl:mt-24 xl:ml-12"
-          >
-            <!-- Text Wrapper -->
-            <div class="flex flex-col p-12 md:px-16">
-              <h2
-                class="text-2xl font-medium uppercase text-secondary-dark lg:text-4xl"
-              >
-                GALLERY
-              </h2>
-              <p class="mt-4">
-                Gallery section showcases the images I've captured while being part of various solo trips, group trips and other 
-                gatherings. This section provides a closer look into my life in a visual way. You can view the details each post 
-                by clicking on the "View Details" button. It would display details of the post including the images and the description.
+              <h1 class="mt-6 text-4xl font-black tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
+                Photo <span class="text-indigo-600">Gallery</span>
+              </h1>
+
+              <p class="mt-6 text-lg leading-relaxed text-slate-600">
+                A curated visual diary capturing solo journeys, architecture, mountain passes, and personal gatherings across India and Europe.
               </p>
+
+              <div class="mt-8 flex flex-wrap gap-3 text-xs font-semibold text-slate-600">
+                <span class="rounded-lg border border-slate-200 bg-slate-100 px-3 py-1.5">🏔️ Landscapes &amp; Nature</span>
+                <span class="rounded-lg border border-slate-200 bg-slate-100 px-3 py-1.5">🏛️ Heritage Sites</span>
+                <span class="rounded-lg border border-slate-200 bg-slate-100 px-3 py-1.5">📸 Travel Chronicles</span>
+              </div>
             </div>
-            <!-- Close Text Wrapper -->
+
+            <div class="relative flex justify-center lg:col-span-5">
+              <div class="relative aspect-4/3 w-full max-w-md overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-2xl">
+                <img
+                  class="h-full w-full object-cover object-center"
+                  src="https://softgenie.org/media/images/generic/gallery.jpeg"
+                  alt="Ladakh Lake Showcase"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
           </div>
-          <!-- Close Text Column -->
-      </div>
-      <Loader v-if="isLoading" />
-      <div v-else>
-        <div v-if="gallery.results && gallery.results.length">
-          <div
-            v-for="item in gallery.results"
-            :key="item.id"
-            class="card my-4 p-4 border bg-white rounded shadow-lg"
-            :data-aos="randomAOSEffect()"
-          >
-            <div v-if="item.tags && item.tags.length" class="my-4">
-              <span
-                v-for="tag in item.tags"
-                :key="tag.name"
-                class="inline-block bg-primary text-primary-dark font-semibold mr-2 px-2.5 py-0.5 rounded-lg shadow-lg"
-              >
-                {{ tag.name }}
-              </span>
-            </div>
-            <h2 class="text-2xl font-bold">{{ item.title }}</h2>
-            <div v-html="item.description"></div>
-            <div v-if="item.images && item.images.length">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div v-for="image in item.images" :key="image.id" class="my-2">
-                  <img
-                    :src="getFullImageUrl(image.image)"
-                    alt="Gallery Image"
-                    class="w-full h-auto rounded"
-                  />
-                  <div class="flex items-center justify-between mt-4">
-                    <span>
-                      {{ image.caption }}
-                    </span>
+        </div>
+      </section>
+
+      <main class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <Loader v-if="isLoading" />
+
+        <div v-else>
+          <div v-if="gallery.results && gallery.results.length" class="space-y-12">
+            <article
+              v-for="item in gallery.results"
+              :key="item.id"
+              class="overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md sm:p-8"
+              data-aos="fade-up"
+            >
+              <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span
+                    v-for="tag in item.tags"
+                    :key="tag.name"
+                    class="rounded-md border border-indigo-100 bg-indigo-50/80 px-2.5 py-0.5 text-xs font-semibold text-indigo-700"
+                  >
+                    #{{ tag.name }}
+                  </span>
+                </div>
+                <time class="text-xs font-medium text-slate-400">
+                  {{ new Date(item.date_posted).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) }}
+                </time>
+              </div>
+
+              <div class="mt-5">
+                <h2 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                  {{ item.title }}
+                </h2>
+                <div
+                  class="prose prose-slate mt-3 max-w-none text-sm leading-relaxed text-slate-600"
+                  v-html="item.description"
+                ></div>
+              </div>
+
+              <div v-if="item.images && item.images.length" class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div
+                  v-for="image in item.images"
+                  :key="image.id"
+                  class="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-slate-50 transition-all hover:border-slate-300"
+                >
+                  <div class="relative aspect-4/3 w-full overflow-hidden bg-slate-200">
+                    <img
+                      :src="getFullImageUrl(image.image)"
+                      :alt="image.caption || item.title"
+                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
                     <button
+                      type="button"
                       @click="viewImageInFullSize(image.image)"
-                      class="bg-primary-dark text-primary py-2 px-3 rounded-full font-semibold hover:bg-gray-500"
+                      class="absolute top-2.5 right-2.5 flex h-8 w-8 items-center justify-center rounded-lg bg-black/60 text-white opacity-0 backdrop-blur-md transition-opacity duration-200 group-hover:opacity-100 hover:bg-black/80"
+                      aria-label="View Full Size Image"
                     >
-                      View Full Size
+                      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                      </svg>
                     </button>
+                  </div>
+
+                  <div v-if="image.caption" class="p-3 text-xs text-slate-600 truncate">
+                    {{ image.caption }}
                   </div>
                 </div>
               </div>
-            </div>
-            <p class="text-primary-dark mt-4">
-              Posted on: {{ new Date(item.date_posted).toLocaleDateString() }}
-            </p>
-            <button
-              @click="goToDetail(item)"
-              class="bg-secondary-dark text-primary py-2 px-3 rounded-full font-semibold mt-4"
-            >
-              View Details
-            </button>
+
+              <div class="mt-8 flex items-center justify-end border-t border-slate-100 pt-5">
+                <button
+                  type="button"
+                  @click="goToDetail(item)"
+                  class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-5 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  <span>View Post Story</span>
+                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <div v-else class="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white py-20 text-center">
+            <span class="text-4xl">📷</span>
+            <h3 class="mt-4 text-base font-bold text-slate-900">No Stories Published Yet</h3>
+            <p class="mt-1 text-xs text-slate-500">Check back later for new photography and expedition updates.</p>
           </div>
         </div>
-        <div v-else>
-          <p>No images available.</p>
-        </div>
-      </div>
+      </main>
     </div>
   </NuxtLayout>
 </template>
 
 <script setup>
-import { onMounted, computed } from "vue";
-import gsap from "gsap";
+import { onMounted, computed } from 'vue';
+import gsap from 'gsap';
 
 useHead({
-  title: 'APGIIIT.com - My Gallery',
+  title: 'Gallery | APGIIIT.com - Travel & Photography',
 });
 
 definePageMeta({
   layout: false,
-  title: "My Portfolio - Gallery",
-  description: "Showcase of my gallery",
+  title: 'Gallery - Amit Prafulla',
+  description: 'Showcase of photography, solo expeditions, and travel diaries.',
 });
 
 const galleryStore = useGallery();
 const isLoading = computed(() => galleryStore.isLoading);
 const gallery = computed(() => galleryStore.getGalleryList);
 
-const randomAOSEffect = () => {
-  // return a random aos effect
-  const effectList = [
-    "fade-up",
-    "fade-down",
-    "fade-left",
-    "fade-right",
-    "fade-up-right",
-    "fade-up-left",
-    "fade-down-right",
-    "fade-down-left",
-    "flip-up",
-    "flip-down",
-    "flip-left",
-    "flip-right",
-    "slide-left",
-    "slide-right",
-    "zoom-in",
-    "zoom-out",
-  ];
-  return effectList[Math.floor(Math.random() * effectList.length)];
-};
-
 const getFullImageUrl = (image) => {
-  return `https://softgenie.org${image}`;
+  return image.startsWith('http') ? image : `https://softgenie.org${image}`;
 };
 
 const viewImageInFullSize = (image) => {
-  window.open(`https://softgenie.org${image}`, "_blank");
+  const url = image.startsWith('http') ? image : `https://softgenie.org${image}`;
+  window.open(url, '_blank');
 };
 
-const goToDetail = async (gallery) => {
-  await navigateTo(`/gallery/${gallery.id}`);
+const goToDetail = async (item) => {
+  await navigateTo(`/gallery/${item.id}`);
 };
 
 onMounted(() => {
   if (!gallery.value || !gallery.value.results || !gallery.value.results.length) {
     galleryStore.getGalleriesAction();
   }
-  
+
   gsap.from('.hero', {
-    y: -100,
-    scale: 0.8,
+    y: 30,
     opacity: 0,
-    duration: 1,
+    duration: 0.8,
     ease: 'power3.out',
   });
 });

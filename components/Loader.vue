@@ -1,43 +1,32 @@
 <template>
-  <div class="flex justify-center items-center h-full my-8">
-    <div class="loader ease-linear rounded-full border-8 text-secondary border-t-8 h-24 w-24"></div>
+  <div class="flex min-h-[50vh] flex-col items-center justify-center gap-4 py-8">
+    <div class="relative flex items-center justify-center">
+      <!-- Outer ambient pulse -->
+      <div class="absolute h-20 w-20 animate-ping rounded-full bg-secondary/15 duration-1000" />
+
+      <div class="h-16 w-16 rounded-full border-4 border-secondary/20" />
+
+      <div
+        class="absolute h-16 w-16 animate-spin rounded-full border-4 border-transparent border-t-primary border-r-secondary"
+      />
+
+      <div class="absolute h-3 w-3 rounded-full bg-primary/80 animate-pulse" />
+    </div>
+    
+    <span
+      v-if="label"
+      class="text-xs font-semibold tracking-widest text-secondary-dark uppercase animate-pulse"
+    >
+      {{ label }}
+    </span>
   </div>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'Loader',
+<script setup>
+defineProps({
+  label: {
+    type: String,
+    default: 'Loading...',
+  },
 });
 </script>
-
-<style>
-.loader {
-  border-top-color: transparent;
-  border-right-color: transparent;
-  border-bottom-color: transparent;
-  -webkit-animation: spinner 1.5s linear infinite;
-  animation: spinner 1.5s linear infinite;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-@-webkit-keyframes spinner {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-@keyframes spinner {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-</style>
