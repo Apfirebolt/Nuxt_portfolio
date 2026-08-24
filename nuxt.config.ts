@@ -1,7 +1,11 @@
 import { defineNuxtConfig } from "nuxt/config";
+import tailwindcss from "@tailwindcss/vite";
 
-// https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
+// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  compatibilityDate: "2024-12-24",
+  devtools: { enabled: true },
+
   app: {
     head: {
       htmlAttrs: {
@@ -23,23 +27,21 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   css: ["~/assets/css/main.css"],
 
-  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "nuxt-easy-lightbox", "nuxt-swiper"],
+  // Tailwind v4 uses the Vite plugin, so @nuxtjs/tailwindcss is removed from modules
+  modules: ["@pinia/nuxt", "nuxt-easy-lightbox", "nuxt-swiper"],
 
-  routeRules: [
-    {
-      '/login': { ssr: false },
-    },
-  ],
+  routeRules: {
+    "/login": { ssr: false },
+  },
 
-  tailwindcss: {
-    cssPath: "~/assets/css/tailwind.css",
+  vite: {
+    plugins: [tailwindcss()],
   },
 
   build: {
     transpile: ["gsap", "@headlessui/vue", "@heroicons/vue"],
   },
-
-  compatibilityDate: "2024-12-24",
 });

@@ -2,13 +2,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
-body {
-    font-family: 'Roboto', sans-serif;
+@import "tailwindcss";
+
+/* Dark mode configuration for class and [data-theme="dark"] */
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  /* Colors */
+  --color-primary: #FFFAEC;
+  --color-secondary: #F5ECD5;
+  --color-primary-dark: #3D3D3D;
+  --color-secondary-dark: #578E7E;
+  --color-primary-light: #FFD700;
+  --color-secondary-light: #FFA500;
+  --color-danger: #FF0000;
+  --color-success: #00FF00;
+
+  /* Custom Screens / Breakpoints */
+  --breakpoint-iphone: 414px;
+  --breakpoint-3xl: 1680px;
+
+  /* Minimum & Maximum Widths/Heights */
+  --min-width-sm: 20rem;
+  --min-width-md: 28rem;
+  --min-height-project-card: 12rem;
+  --max-width-xxs: 16rem;
+
+  /* Box Shadows */
+  --shadow-btm-right: 8px 12px 24px -12px #666565;
+  --shadow-top-right: -12px -8px 24px -12px #666565;
+  --shadow-around: 0px 0px 17px 2px rgba(255, 255, 255, 0.43);
 }
 
-p {
-    font-size: 1.1rem;
-    font-family: 'Open Sans', sans-serif;
+body {
+    font-family: 'Roboto', sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -16,13 +43,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .about-content img {
-    height: 400px;
+    height: 300px;
 }
 
 .brand-logo {
     height: 3rem;
-}
-
-.h-500 {
-    height: 500px;
 }
