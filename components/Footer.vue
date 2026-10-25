@@ -63,10 +63,10 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <!-- Name Field -->
               <div>
-                <label for="name" class="block text-xs font-bold uppercase tracking-wider mb-1.5 opacity-80">Your Name</label>
+                <label for="footer-name" class="block text-xs font-bold uppercase tracking-wider mb-1.5 opacity-80">Your Name</label>
                 <input
                   type="text"
-                  id="name"
+                  id="footer-name"
                   v-model="form.name"
                   required
                   placeholder="John Doe"
@@ -76,10 +76,10 @@
 
               <!-- Email Field -->
               <div>
-                <label for="email" class="block text-xs font-bold uppercase tracking-wider mb-1.5 opacity-80">Your Email</label>
+                <label for="footer-email" class="block text-xs font-bold uppercase tracking-wider mb-1.5 opacity-80">Your Email</label>
                 <input
                   type="email"
-                  id="email"
+                  id="footer-email"
                   v-model="form.email"
                   required
                   placeholder="john@example.com"
@@ -90,13 +90,13 @@
 
             <!-- Message Field -->
             <div>
-              <label for="message" class="block text-xs font-bold uppercase tracking-wider mb-1.5 opacity-80">Your Message</label>
+              <label for="footer-message" class="block text-xs font-bold uppercase tracking-wider mb-1.5 opacity-80">Your Message</label>
               <textarea
-                id="message"
+                id="footer-message"
                 v-model="form.message"
                 required
                 rows="4"
-                placeholder="Tell me about your project or inquiry..."
+                placeholder="Type your message..."
                 class="w-full px-4 py-2.5 rounded-xl bg-[var(--color-primary)] border border-[var(--color-primary-dark)]/20 text-sm focus:outline-none focus:border-[var(--color-secondary-dark)] transition-colors resize-none"
               ></textarea>
             </div>
@@ -122,7 +122,7 @@
 
       <!-- Bottom Copyright Bar -->
       <div class="mt-12 flex flex-col items-center justify-between gap-4 sm:flex-row text-xs opacity-75">
-        <p>&copy; {{ CURRENT_YEAR }} APGIIIT.com. All rights reserved.</p>
+        <p>&copy; <ClientOnly>{{ currentYear }}</ClientOnly> APGIIIT.com. All rights reserved.</p>
         <p>Designed & Built with Nuxt & Tailwind CSS</p>
       </div>
     </div>
@@ -130,9 +130,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
-const CURRENT_YEAR = new Date().getFullYear();
+const currentYear = ref(2026);
+
+onMounted(() => {
+  currentYear.value = new Date().getFullYear();
+});
 
 const navigation = [
   { name: "index", path: "Home" },

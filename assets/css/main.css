@@ -119,3 +119,45 @@ h1, h2, h3, h4, h5, h6 {
 .brand-logo {
     height: 3rem;
 }
+
+/* --- Dynamic Prose / HTML Content Theme Fixer --- */
+.prose {
+  color: var(--primary) !important;
+}
+
+.prose p, 
+.prose li, 
+.prose span, 
+.prose strong, 
+.prose b {
+  color: var(--primary) !important;
+}
+
+.prose h1, 
+.prose h2, 
+.prose h3, 
+.prose h4, 
+.prose h5, 
+.prose h6 {
+  color: var(--foreground) !important;
+  font-weight: 800 !important;
+}
+
+.prose a {
+  color: var(--accent) !important;
+  text-decoration: underline;
+}
+
+.prose code, 
+.prose pre {
+  background-color: var(--tertiary) !important;
+  color: var(--foreground) !important;
+  border-radius: 0.5rem;
+  padding: 0.2rem 0.4rem;
+}
+
+.prose blockquote {
+  border-left-color: var(--accent) !important;
+  color: var(--foreground) !important;
+  background-color: var(--tertiary)/20;
+}
