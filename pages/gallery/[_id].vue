@@ -1,13 +1,14 @@
 <template>
   <NuxtLayout name="default">
-    <div class="min-h-screen bg-slate-50 text-slate-800 antialiased selection:bg-indigo-500 selection:text-white">
+    <div class="min-h-screen bg-[var(--color-primary)] text-[var(--color-primary-dark)] antialiased transition-colors duration-300">
       
       <main class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         
+        <!-- Back Navigation Button -->
         <div class="mb-8 flex items-center justify-between">
           <NuxtLink
             to="/gallery"
-            class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 shadow-sm transition-all hover:bg-slate-50 hover:text-slate-900"
+            class="inline-flex items-center gap-2 rounded-xl border border-[var(--color-primary-dark)]/20 bg-[var(--color-primary)] px-4 py-2 text-xs font-semibold shadow-sm transition-all hover:bg-[var(--color-primary-dark)]/5 cursor-pointer"
           >
             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -16,61 +17,69 @@
           </NuxtLink>
         </div>
 
+        <!-- Loading State -->
         <div v-if="pending" class="flex min-h-[50vh] items-center justify-center">
           <Loader />
         </div>
 
+        <!-- Error State -->
         <div
           v-else-if="error"
-          class="flex flex-col items-center justify-center rounded-2xl border border-dashed border-rose-200 bg-white py-16 text-center"
+          class="flex flex-col items-center justify-center rounded-2xl border border-dashed border-rose-400/40 bg-[var(--color-primary)] py-16 text-center shadow-sm"
         >
           <span class="text-4xl">⚠️</span>
-          <h2 class="mt-4 text-base font-bold text-slate-900">Failed to load story</h2>
-          <p class="mt-1 text-xs text-slate-500">The requested gallery entry could not be retrieved.</p>
+          <h2 class="mt-4 text-base font-bold">Failed to load story</h2>
+          <p class="mt-1 text-xs opacity-65">The requested gallery entry could not be retrieved.</p>
           <button
             type="button"
             @click="() => refresh()"
-            class="mt-6 rounded-lg bg-indigo-600 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-indigo-700"
+            class="mt-6 rounded-xl bg-[var(--color-secondary-dark)] px-5 py-2.5 text-xs font-semibold text-white shadow-sm hover:opacity-90 cursor-pointer"
           >
             Try Again
           </button>
         </div>
 
+        <!-- Content Article -->
         <article
           v-else-if="gallery && gallery.images"
-          class="overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-10"
+          class="overflow-hidden rounded-3xl border border-[var(--color-primary-dark)]/15 bg-[var(--color-primary)] p-6 shadow-sm sm:p-10"
         >
-          <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-6">
+          <!-- Tags & Date Meta -->
+          <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[var(--color-primary-dark)]/10 pb-6">
             <div class="flex flex-wrap items-center gap-2">
               <span
                 v-for="tag in gallery.tags"
                 :key="tag.name"
-                class="rounded-md border border-indigo-100 bg-indigo-50/80 px-3 py-1 text-xs font-semibold text-indigo-700"
+                class="rounded-md border border-[var(--color-primary-dark)]/15 bg-[var(--color-primary-dark)]/5 px-3 py-1 text-xs font-semibold text-[var(--color-secondary-dark)] shadow-sm"
               >
                 #{{ tag.name }}
               </span>
             </div>
-            <time v-if="gallery.date_posted" class="text-xs font-medium text-slate-400">
-              Published on {{ new Date(gallery.date_posted).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}
-            </time>
+            <ClientOnly>
+              <time v-if="gallery.date_posted" class="text-xs font-medium opacity-60">
+                Published on {{ formatDate(gallery.date_posted) }}
+              </time>
+            </ClientOnly>
           </div>
 
+          <!-- Title & Description -->
           <div class="mt-8">
-            <h1 class="text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+            <h1 class="text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
               {{ gallery.title }}
             </h1>
 
             <div
               v-if="isClient && gallery.description"
-              class="prose prose-slate mt-6 max-w-none text-base leading-relaxed text-slate-600"
+              class="prose prose-stone mt-6 max-w-none text-base leading-relaxed opacity-85"
               v-html="gallery.description"
             />
           </div>
 
+          <!-- Photos Grid Section -->
           <div class="mt-12">
-            <div class="flex items-center justify-between pb-4">
-              <h2 class="text-lg font-bold text-slate-900">Photographs</h2>
-              <span class="text-xs font-medium text-slate-400">{{ gallery.images.length }} captures</span>
+            <div class="flex items-center justify-between pb-4 border-b border-[var(--color-primary-dark)]/10 mb-6">
+              <h2 class="text-lg font-bold">Photographs</h2>
+              <span class="text-xs font-medium opacity-60">{{ gallery.images.length }} captures</span>
             </div>
 
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -78,7 +87,7 @@
                 v-for="(image, index) in gallery.images"
                 :key="index"
                 @click="openLightbox(index)"
-                class="group relative aspect-4/3 cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-slate-100 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-md"
+                class="group relative aspect-4/3 cursor-pointer overflow-hidden rounded-2xl border border-[var(--color-primary-dark)]/15 bg-[var(--color-primary-dark)]/5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-secondary-dark)] hover:shadow-md"
               >
                 <img
                   :src="getImageUrl(image.image)"
@@ -87,7 +96,7 @@
                   loading="lazy"
                 />
                 
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
                 <div class="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-center justify-between">
                   <span class="text-xs font-medium truncate pr-2">{{ image.caption || 'View full photo' }}</span>
@@ -102,6 +111,7 @@
 
       </main>
 
+      <!-- Immersive Lightbox Modal -->
       <Teleport to="body">
         <Transition
           enter-active-class="transition duration-200 ease-out"
@@ -119,10 +129,11 @@
             @keydown.left="prevImage"
             tabindex="0"
           >
+            <!-- Close Button -->
             <button
               type="button"
               @click="closeLightbox"
-              class="absolute top-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus:outline-none"
+              class="absolute top-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus:outline-none cursor-pointer"
               aria-label="Close Preview"
             >
               <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -130,11 +141,12 @@
               </svg>
             </button>
 
+            <!-- Previous Button -->
             <button
               v-if="gallery.images.length > 1"
               type="button"
               @click.stop="prevImage"
-              class="absolute left-4 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus:outline-none sm:left-8"
+              class="absolute left-4 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus:outline-none sm:left-8 cursor-pointer"
               aria-label="Previous image"
             >
               <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -142,22 +154,24 @@
               </svg>
             </button>
 
+            <!-- Active Lightbox Image & Caption -->
             <div class="flex max-h-[85vh] max-w-5xl flex-col items-center justify-center">
               <img
                 :src="getImageUrl(gallery.images[currentImageIndex].image)"
                 :alt="gallery.images[currentImageIndex].caption || gallery.title"
-                class="max-h-[75vh] max-w-full rounded-lg object-contain shadow-2xl transition-all duration-300"
+                class="max-h-[75vh] max-w-full rounded-2xl object-contain shadow-2xl transition-all duration-300"
               />
-              <p v-if="gallery.images[currentImageIndex].caption" class="mt-3 text-center text-xs font-medium text-white/80">
+              <p v-if="gallery.images[currentImageIndex].caption" class="mt-4 text-center text-xs font-medium text-white/90">
                 {{ gallery.images[currentImageIndex].caption }}
               </p>
             </div>
 
+            <!-- Next Button -->
             <button
               v-if="gallery.images.length > 1"
               type="button"
               @click.stop="nextImage"
-              class="absolute right-4 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus:outline-none sm:right-8"
+              class="absolute right-4 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus:outline-none sm:right-8 cursor-pointer"
               aria-label="Next image"
             >
               <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -165,7 +179,8 @@
               </svg>
             </button>
 
-            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full border border-white/10 bg-black/40 px-4 py-1.5 text-xs font-semibold text-white/80 backdrop-blur-sm">
+            <!-- Image Index Counter -->
+            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full border border-white/15 bg-black/50 px-4 py-1.5 text-xs font-semibold text-white backdrop-blur-md">
               {{ currentImageIndex + 1 }} / {{ gallery.images.length }}
             </div>
           </div>
@@ -209,6 +224,15 @@ if (gallery.value) {
 const getImageUrl = (imagePath) => {
   if (!imagePath) return '';
   return imagePath.startsWith('http') ? imagePath : `https://softgenie.org${imagePath}`;
+};
+
+const formatDate = (dateString) => {
+  if (!dateString) return '';
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
 };
 
 const openLightbox = (index) => {
