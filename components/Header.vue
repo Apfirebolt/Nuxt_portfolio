@@ -15,7 +15,7 @@
             />
           </div>
           <span class="font-bold tracking-tight text-lg text-[var(--color-primary-dark)] hidden sm:inline-block">
-            Portfolio<span class="text-[var(--color-secondary-dark)]">.</span>
+            My<span class="text-[var(--color-secondary-dark)]"> Portfolio</span>
           </span>
         </NuxtLink>
       </div>

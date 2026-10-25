@@ -122,15 +122,17 @@ h1, h2, h3, h4, h5, h6 {
 
 /* --- Dynamic Prose / HTML Content Theme Fixer --- */
 .prose {
-  color: var(--primary) !important;
+  color: var(--color-primary-dark) !important;
 }
 
 .prose p, 
 .prose li, 
 .prose span, 
 .prose strong, 
-.prose b {
-  color: var(--primary) !important;
+.prose b,
+.prose em {
+  color: var(--color-primary-dark) !important;
+  opacity: 0.9;
 }
 
 .prose h1, 
@@ -139,25 +141,26 @@ h1, h2, h3, h4, h5, h6 {
 .prose h4, 
 .prose h5, 
 .prose h6 {
-  color: var(--foreground) !important;
+  color: var(--color-primary-dark) !important;
   font-weight: 800 !important;
 }
 
 .prose a {
-  color: var(--accent) !important;
+  color: var(--color-secondary-dark) !important;
   text-decoration: underline;
 }
 
 .prose code, 
 .prose pre {
-  background-color: var(--tertiary) !important;
-  color: var(--foreground) !important;
+  background-color: color-mix(in srgb, var(--color-primary-dark) 10%, transparent) !important;
+  color: var(--color-primary-dark) !important;
   border-radius: 0.5rem;
   padding: 0.2rem 0.4rem;
 }
 
 .prose blockquote {
-  border-left-color: var(--accent) !important;
-  color: var(--foreground) !important;
-  background-color: var(--tertiary)/20;
+  border-left-color: var(--color-secondary-dark) !important;
+  color: var(--color-primary-dark) !important;
+  background-color: color-mix(in srgb, var(--color-primary-dark) 5%, transparent);
+  padding: 0.5rem 1rem;
 }
