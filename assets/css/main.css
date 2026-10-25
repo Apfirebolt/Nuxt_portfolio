@@ -1,11 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Railway:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Lato:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Source+Sans+3:wght@400;700&display=swap');
 
 @import "tailwindcss";
 
-/* Dark mode configuration for class and [data-theme="dark"] */
+/* Theme Variants Configuration */
 @custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+@custom-variant winter (&:where(.winter, .winter *, [data-theme="winter"], [data-theme="winter"] *));
+@custom-variant summer (&:where(.summer, .summer *, [data-theme="summer"], [data-theme="summer"] *));
+@custom-variant autumn (&:where(.autumn, .autumn *, [data-theme="autumn"], [data-theme="autumn"] *));
+@custom-variant light (&:where(.light, .light *, [data-theme="light"], [data-theme="light"] *));
 
 @theme {
   /* Colors */
@@ -34,12 +40,76 @@
   --shadow-around: 0px 0px 17px 2px rgba(255, 255, 255, 0.43);
 }
 
+/* ==========================================
+   THEME 1: LIGHT (ColorHunt: Minimal Warm)
+   ================================          */
+:root, [data-theme="light"], .light {
+    --color-primary: #F8F9FA;
+    --color-secondary: #E9ECEF;
+    --color-primary-dark: #212529;
+    --color-secondary-dark: #6C757D;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+/* ==========================================
+   THEME 2: DARK (ColorHunt: Midnight Neon)
+   ================================          */
+[data-theme="dark"], .dark {
+    --color-primary: #121212;
+    --color-secondary: #1E1E1E;
+    --color-primary-dark: #E0E0E0;
+    --color-secondary-dark: #BB86FC;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Open Sans', sans-serif;
+}
+
+/* ==========================================
+   THEME 3: WINTER (ColorHunt: Frosty Blue/Ice)
+   ================================          */
+[data-theme="winter"], .winter {
+    --color-primary: #E3F2FD;
+    --color-secondary: #90CAF9;
+    --color-primary-dark: #0D47A1;
+    --color-secondary-dark: #1976D2;
+    --font-heading: 'Merriweather', serif;
+    --font-body: 'Lato', sans-serif;
+}
+
+/* ==========================================
+   THEME 4: SUMMER (ColorHunt: Vibrant Sunset)
+   ================================          */
+[data-theme="summer"], .summer {
+    --color-primary: #FFF3E0;
+    --color-secondary: #FFB74D;
+    --color-primary-dark: #E65100;
+    --color-secondary-dark: #F57C00;
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Roboto', sans-serif;
+}
+
+/* ==========================================
+   THEME 5: AUTUMN (ColorHunt: Earthy Rust)
+   ================================          */
+[data-theme="autumn"], .autumn {
+    --color-primary: #FBEAEB;
+    --color-secondary: #D4A373;
+    --color-primary-dark: #582F0E;
+    --color-secondary-dark: #7F4F24;
+    --font-heading: 'Lora', serif;
+    --font-body: 'Source Sans 3', sans-serif;
+}
+
+/* Global Font Application using Theme Variables */
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: var(--font-body, 'Inter'), sans-serif;
+    background-color: var(--color-primary);
+    color: var(--color-primary-dark);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Railway', sans-serif;
+    font-family: var(--font-heading, 'Playfair Display'), serif;
 }
 
 .about-content img {
