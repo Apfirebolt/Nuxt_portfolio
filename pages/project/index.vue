@@ -66,9 +66,11 @@
                     #{{ tag.name }}
                   </span>
                 </div>
-                <time class="text-xs font-medium opacity-60">
-                  {{ new Date(project.date_posted).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) }}
-                </time>
+                <ClientOnly>
+                  <time class="text-xs font-medium opacity-60">
+                    {{ formatDate(project.date_posted) }}
+                  </time>
+                </ClientOnly>
               </div>
 
               <!-- Title & Description -->
@@ -100,7 +102,7 @@
                     <button
                       type="button"
                       @click="openModal(getFullImageUrl(item.image), item.caption)"
-                      class="absolute top-2.5 right-2.5 flex h-8 w-8 items-center justify-center rounded-lg bg-black/70 text-white opacity-0 backdrop-blur-md transition-opacity duration-200 group-hover:opacity-100 hover:bg-black"
+                      class="absolute top-2.5 right-2.5 flex h-8 w-8 items-center justify-center rounded-lg bg-black/70 text-white opacity-0 backdrop-blur-md transition-opacity duration-200 group-hover:opacity-100 hover:bg-black cursor-pointer"
                       aria-label="View Full Size Image"
                     >
                       <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -201,7 +203,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import { Dialog, DialogPanel, Transition, TransitionChild, TransitionRoot } from '@headlessui/vue';
+import { Dialog, DialogPanel, TransitionRoot, TransitionChild } from '@headlessui/vue';
 import { gsap } from 'gsap';
 
 useHead({
@@ -234,6 +236,15 @@ const closeModal = () => {
 
 const getFullImageUrl = (image) => {
   return image.startsWith('http') ? image : `https://softgenie.org${image}`;
+};
+
+const formatDate = (dateString) => {
+  if (!dateString) return '';
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
 };
 
 const goToDetail = async (project) => {
