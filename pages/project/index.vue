@@ -10,7 +10,7 @@
             <div class="flex flex-col justify-center lg:col-span-6">
               <div class="inline-flex items-center gap-2 self-start rounded-full border border-[var(--color-primary-dark)]/20 bg-[var(--color-primary-dark)]/5 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[var(--color-primary-dark)]">
                 <span class="h-2 w-2 rounded-full bg-[var(--color-secondary-dark)]"></span>
-                Software &amp; Systems Portfolio
+                Software Engineering Projects
               </div>
 
               <h1 class="mt-6 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
@@ -18,14 +18,8 @@
               </h1>
 
               <p class="mt-6 text-lg leading-relaxed opacity-85">
-                A showcase of production web applications, distributed backend services, and open-source tooling built with performance, security, and scalable architecture in mind.
+                A showcase of production full-stack applications with performance, security, and scalable architecture in mind.
               </p>
-
-              <div class="mt-8 flex flex-wrap gap-3 text-xs font-semibold opacity-90">
-                <span class="rounded-lg border border-[var(--color-primary-dark)]/15 bg-[var(--color-primary-dark)]/5 px-3 py-1.5 shadow-sm">⚡ Full-Stack Systems</span>
-                <span class="rounded-lg border border-[var(--color-primary-dark)]/15 bg-[var(--color-primary-dark)]/5 px-3 py-1.5 shadow-sm">🔒 Cloud &amp; Microservices</span>
-                <span class="rounded-lg border border-[var(--color-primary-dark)]/15 bg-[var(--color-primary-dark)]/5 px-3 py-1.5 shadow-sm">📦 Open Source</span>
-              </div>
             </div>
 
             <div class="relative flex justify-center lg:col-span-6">

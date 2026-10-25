@@ -10,7 +10,7 @@
             <div class="flex flex-col justify-center lg:col-span-7">
               <div class="inline-flex items-center gap-2 self-start rounded-full border border-[var(--color-primary-dark)]/20 bg-[var(--color-primary-dark)]/5 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[var(--color-primary-dark)]">
                 <span class="h-2 w-2 rounded-full bg-[var(--color-secondary-dark)]"></span>
-                Visual Log &amp; Expeditions
+                My Expeditions
               </div>
 
               <h1 class="mt-6 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
@@ -18,14 +18,8 @@
               </h1>
 
               <p class="mt-6 text-lg leading-relaxed opacity-85">
-                A curated visual diary capturing solo journeys, architecture, mountain passes, and personal gatherings across India and Europe.
+                A gallery of pictures taken across my travels and expeditions.
               </p>
-
-              <div class="mt-8 flex flex-wrap gap-3 text-xs font-semibold opacity-90">
-                <span class="rounded-lg border border-[var(--color-primary-dark)]/15 bg-[var(--color-primary-dark)]/5 px-3 py-1.5 shadow-sm">🏔️ Landscapes &amp; Nature</span>
-                <span class="rounded-lg border border-[var(--color-primary-dark)]/15 bg-[var(--color-primary-dark)]/5 px-3 py-1.5 shadow-sm">🏛️ Heritage Sites</span>
-                <span class="rounded-lg border border-[var(--color-primary-dark)]/15 bg-[var(--color-primary-dark)]/5 px-3 py-1.5 shadow-sm">📸 Travel Chronicles</span>
-              </div>
             </div>
 
             <div class="relative flex justify-center lg:col-span-5">

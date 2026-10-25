@@ -44,13 +44,6 @@
                   </button>
                 </div>
               </form>
-
-              <!-- Tech Badges -->
-              <div class="mt-8 flex flex-wrap gap-3 text-xs font-semibold opacity-90">
-                <span class="rounded-lg border border-[var(--color-primary-dark)]/15 bg-[var(--color-primary)] px-3 py-1.5 shadow-sm">FastAPI &amp; Django</span>
-                <span class="rounded-lg border border-[var(--color-primary-dark)]/15 bg-[var(--color-primary)] px-3 py-1.5 shadow-sm">Node.js &amp; Nuxt</span>
-                <span class="rounded-lg border border-[var(--color-primary-dark)]/15 bg-[var(--color-primary)] px-3 py-1.5 shadow-sm">Docker &amp; Cloud</span>
-              </div>
             </div>
 
             <!-- Hero Image -->
